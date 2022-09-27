@@ -1,0 +1,62 @@
+.sign-in-mw {
+  display: flex;
+  flex-direction: column;
+  width: 384px;
+  min-height: 374px;
+  -webkit-box-shadow: 0px 4px 8px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 4px 8px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 4px 8px 2px rgba(34, 60, 80, 0.2);
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  padding: 48px 33px;
+  margin-top: 59px;
+  background-color: #fff;
+}
+
+.sign-in-header {
+  text-align: center;
+  font-weight: 600;
+}
+
+.email-address-label,
+.password-label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.email-address-input,
+.password-input {
+  margin-top: 5px;
+  padding-left: 10px;
+  width: 320px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.sign-in-text {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  color: #8c8c8c;
+}
+
+.login-button {
+  margin-top: 21px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  width: 319px;
+  height: 40px;
+}
+
+.sign-in-text {
+  text-align: center;
+}
+
+.sign-up-button {
+  background: inherit;
+  border: none;
+  outline: none;
+  color: #1890ff;
+}
