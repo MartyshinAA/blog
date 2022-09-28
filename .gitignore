@@ -12,6 +12,7 @@
 /build
 
 # misc
+.husky
 .DS_Store
 .env.local
 .env.development.local

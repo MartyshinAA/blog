@@ -12,10 +12,8 @@ import BlogHeader from '../blog-header';
 import NewAccount from '../new-account-mw/new-account-mw';
 import SignIn from '../sign-in-mw/sign-in-mw';
 import EditProfile from '../edit-profile-mw';
-// import BlogArticleView from '../blog-article-view';
 import BlogArticles from '../blog-articles';
 import BlogArticle from '../blog-article';
-// import BlogPagination from '../blog-pagination';
 // import NewArticle from '../new-article-mw';
 
 const App = () => {

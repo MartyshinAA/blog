@@ -1,13 +1,14 @@
-// import classes from './blog-articles.module.scss';
 import { useSelector } from 'react-redux';
 import React from 'react';
 
+import ArticlesSkeletonView from '../articles-skeleton-view';
 import BlogArticleView from '../blog-article-view';
 import BlogPagination from '../blog-pagination';
 
 const BlogArticles = () => {
-  // const dispatch = useDispatch();
   const { allArticlesReducer } = useSelector((state) => state);
+  const { isErrorReducer } = useSelector((state) => state);
+  const { isLoadingReducer } = useSelector((state) => state);
 
   const article = allArticlesReducer.map((props) => {
     return (
@@ -16,9 +17,18 @@ const BlogArticles = () => {
       </React.Fragment>
     );
   });
+
+  const status = !(isLoadingReducer || isErrorReducer);
+  const skeleton = isLoadingReducer && (
+    <ul>
+      <ArticlesSkeletonView cards={5} />
+    </ul>
+  );
+  const content = status && <ul>{article}</ul>;
+
   return (
     <>
-      <ul>{article}</ul>
+      {skeleton || content}
       <BlogPagination />
     </>
   );

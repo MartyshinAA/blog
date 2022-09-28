@@ -24,29 +24,32 @@ h3 {
     display: flex;
     justify-content: space-between;
   }
+
   &__left-side {
     .article-title {
-      // margin-right: 13px;
       color: #1890ff;
       font-weight: 400;
     }
   }
+
   &__title-wrapper {
     display: flex;
     align-items: center;
   }
+
   &__heart {
     width: 16px;
     height: 17px;
     margin-left: 13px;
   }
+
   &__heart-count {
     font-size: 12px;
     margin-left: 5px;
   }
+
   &__tags-wrapper {
     display: flex;
-    gap: 8px;
     font-size: 12px;
     margin: 6px 0;
   }
@@ -58,22 +61,21 @@ h3 {
     font-size: 12px;
     line-height: 2;
   }
-  &__right-side {
-  }
+
   &__right-side-wraper {
     display: flex;
     align-items: center;
   }
-  &__info-wraper {
-    // display: flex;
-  }
+
   &__name {
     font-size: 18px;
   }
+
   &__date {
     font-size: 12px;
     color: #00000080;
   }
+
   &__photo {
     width: 46px;
     height: 46px;
