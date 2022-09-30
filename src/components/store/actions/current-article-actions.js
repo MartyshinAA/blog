@@ -10,14 +10,14 @@ const currentArticleActions = (article) => ({
 });
 
 export const loadArticle = (slug) => (dispatch) => {
-  dispatch(isLoadingActions(true));
   dispatch(isErrorActions(false));
   dispatch(currentArticleActions(''));
   BlogGetArticle(slug)
     .then((response) => {
-      dispatch(isLoadingActions(false));
+      dispatch(isLoadingActions(true));
       const { article } = response.data;
       dispatch(currentArticleActions(article));
+      dispatch(isLoadingActions(false));
     })
     .catch(() => dispatch(isErrorActions(true)));
 };

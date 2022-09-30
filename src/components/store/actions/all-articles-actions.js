@@ -13,14 +13,14 @@ const allArticlesActions = (articles) => ({
 export const loadArticles =
   (page = 0) =>
   (dispatch) => {
-    dispatch(isLoadingActions(true));
     dispatch(isErrorActions(false));
     BlogGetInfo(page)
       .then((response) => {
-        dispatch(isLoadingActions(false));
+        dispatch(isLoadingActions(true));
         const { articles, articlesCount } = response.data;
         dispatch(allArticlesActions(articles));
         dispatch(totalCounterOfArticlesActions(articlesCount));
+        dispatch(isLoadingActions(false));
       })
       .catch(() => dispatch(isErrorActions(true)));
   };

@@ -49,6 +49,8 @@ const BlogArticle = () => {
   const { isLoadingReducer } = useSelector((state) => state);
   const { currentArticleReducer } = useSelector((state) => state);
 
+  console.log(isLoadingReducer);
+
   const dispatch = useDispatch();
   const { slug } = useParams();
 
@@ -108,7 +110,7 @@ const BlogArticle = () => {
                   {createdAt && format(new Date(createdAt), 'MMMM dd, yyyy')}
                 </div>
               </div>
-              <Image src={image} className={classes['blog-article__photo']} alt="avatar"></Image>
+              <Image src={image} className={classes['blog-article__photo']} alt="avatar" preview={false}></Image>
             </div>
           </div>
         </div>
