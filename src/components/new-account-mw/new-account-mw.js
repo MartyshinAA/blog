@@ -1,4 +1,5 @@
 import { Checkbox, Button, Input, Divider } from 'antd';
+import { Link } from 'react-router-dom';
 
 import classes from './new-account-mw.module.scss';
 
@@ -12,7 +13,7 @@ const NewAccount = () => {
   const repeatPassAttention = <div className={classes['pass-not-match']}>Passwords must match</div>;
 
   return (
-    <div className={classes['create-new-account-mw']}>
+    <for className={classes['create-new-account-mw']}>
       <h2 className={classes['account-header']}>Create new account</h2>
       <label className={classes['username-label']}>
         Username
@@ -49,9 +50,11 @@ const NewAccount = () => {
       </Button>
       <div className={classes['sign-in-text']}>
         Already have an account?
-        <button className={classes['sign-in-button']}>Sign In.</button>
+        <Link to="/sign-in" className={classes['sign-in-button']}>
+          Sign In.
+        </Link>
       </div>
-    </div>
+    </for>
   );
 };
 export default NewAccount;

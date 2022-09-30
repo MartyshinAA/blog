@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-// let API_KEY;
-
 export async function BlogGetInfo(offset = 0) {
   let response;
   try {

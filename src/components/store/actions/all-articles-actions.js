@@ -17,10 +17,10 @@ export const loadArticles =
     dispatch(isErrorActions(false));
     BlogGetInfo(page)
       .then((response) => {
+        dispatch(isLoadingActions(false));
         const { articles, articlesCount } = response.data;
         dispatch(allArticlesActions(articles));
         dispatch(totalCounterOfArticlesActions(articlesCount));
-        dispatch(isLoadingActions(false));
       })
       .catch(() => dispatch(isErrorActions(true)));
   };

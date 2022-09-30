@@ -1,4 +1,5 @@
 import { Button, Input } from 'antd';
+import { Link } from 'react-router-dom';
 
 import classes from './sign-in-mw.module.scss';
 
@@ -23,7 +24,7 @@ const SignIn = () => {
       </Button>
       <div className={classes['sign-in-text']}>
         {"Don't have an account?"}
-        <button className={classes['sign-up-button']}>Sign Up.</button>
+        <Link className={classes['sign-up-button']}>Sign Up.</Link>
       </div>
     </div>
   );

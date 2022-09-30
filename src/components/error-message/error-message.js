@@ -2,7 +2,7 @@ import { Alert } from 'antd';
 
 import classes from './error-message.module.scss';
 
-const errorMessage = (
+const ErrorMessage = (
   <Alert
     className={classes['error-message']}
     message="Error"
@@ -12,4 +12,4 @@ const errorMessage = (
   />
 );
 
-export default errorMessage;
+export default ErrorMessage;

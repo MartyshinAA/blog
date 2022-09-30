@@ -6,7 +6,7 @@ import photo from '../../img/content/Photo.png';
 import classes from './blog-header.module.scss';
 
 const BlogHeader = () => {
-  let logged = true;
+  let logged = false;
 
   const loggedIn = (
     <div className={classes['title__right-side']}>
@@ -37,7 +37,9 @@ const BlogHeader = () => {
   return (
     <div className={classes.title}>
       <div className={classes['title__left-side']}>
-        <div className={classes['site-name']}>Realworld Blog</div>
+        <Link to={'/'} className={classes['site-name']}>
+          Realworld Blog
+        </Link>
       </div>
       {logged ? loggedIn : anonimus}
     </div>

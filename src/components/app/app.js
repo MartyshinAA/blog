@@ -9,7 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import { loadArticles } from '../store/actions/all-articles-actions';
 import { store } from '../store/store';
 import BlogHeader from '../blog-header';
-import NewAccount from '../new-account-mw/new-account-mw';
+import NewAccount from '../new-account-mw';
 import SignIn from '../sign-in-mw/sign-in-mw';
 import EditProfile from '../edit-profile-mw';
 import BlogArticles from '../blog-articles';
@@ -31,9 +31,9 @@ const App = () => {
       <WrapperUseEffect />
       <BlogHeader />
       <Routes>
+        <Route path="/" element={<BlogArticles />} />
         <Route path="/articles" element={<BlogArticles />} />
-        <Route path="/article" element={<BlogArticle />} />
-        <Route path="/articles/{slug}" element={<NewAccount />} />
+        <Route path="/articles/:slug" element={<BlogArticle />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<NewAccount />} />
         <Route path="/profile" element={<EditProfile />} />
