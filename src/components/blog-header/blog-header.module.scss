@@ -1,6 +1,5 @@
 $background-color: #fff;
 $success-color: #52c41a;
-// $logout-color: #000000bf;
 $create-article: #52c41a;
 $default-button-text-color: #000000bf;
 
@@ -20,6 +19,8 @@ $default-button-text-color: #000000bf;
     color: $create-article;
     border-radius: 5px;
     background-color: inherit;
+    font-size: 14px;
+    padding: 5px;
   }
 
   &__left-side {
@@ -58,6 +59,7 @@ $default-button-text-color: #000000bf;
     }
 
     .log-out {
+      font-size: 18px;
       color: $default-button-text-color;
       border: 1px solid $default-button-text-color;
     }
@@ -71,5 +73,6 @@ $default-button-text-color: #000000bf;
   &__user-name {
     white-space: nowrap;
     margin-right: 10px;
+    color: $default-button-text-color;
   }
 }

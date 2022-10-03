@@ -1,51 +1,127 @@
-import { Checkbox, Button, Input, Divider } from 'antd';
+import React, { useRef } from 'react';
+import { Form, Checkbox, Button, Input, Divider } from 'antd';
 import { Link } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+
+import { signUp } from '../../components/store/thunks/blog-sign-up-thunk';
 
 import classes from './new-account-mw.module.scss';
 
 const NewAccount = () => {
-  const onChange = (e) => {
-    console.log(`checked = ${e.target.checked}`);
+  const {
+    formState: { errors },
+    handleSubmit,
+    reset,
+    control,
+    watch,
+  } = useForm({
+    mode: 'onBlur',
+  });
+
+  const dispatch = useDispatch();
+
+  const onSubmit = (data) => {
+    dispatch(signUp(data));
+    reset();
   };
-  let wrongPass = true;
-  let passNotMatch = true;
-  const passAttention = <div className={classes['wrong-pass']}>Your password needs to be at least 6 characters.</div>;
-  const repeatPassAttention = <div className={classes['pass-not-match']}>Passwords must match</div>;
+
+  const password = useRef({});
+  password.current = watch('password', '');
 
   return (
-    <for className={classes['create-new-account-mw']}>
+    <Form onFinish={handleSubmit(onSubmit)} className={classes['create-new-account-mw']}>
       <h2 className={classes['account-header']}>Create new account</h2>
-      <label className={classes['username-label']}>
-        Username
-        <Input className={classes['username-input']} placeholder={'Username'}></Input>
-      </label>
-      <label className={classes['email-address-label']}>
-        Email address
-        <Input className={classes['email-address-input']} placeholder={'Email address'}></Input>
-      </label>
-      <label className={classes['password-label']}>
-        Password
-        <Input.Password
-          iconRender={(visible) => visible}
-          className={classes['password-input']}
-          placeholder={'Password'}
-        ></Input.Password>
-        {wrongPass && passAttention}
-      </label>
-      <label className={classes['repeat-password-label']}>
-        Repeat Password
-        <Input.Password
-          iconRender={(visible) => visible}
-          className={classes['repeat-password-input']}
-          placeholder={'Repeat Password'}
-        ></Input.Password>
-        {passNotMatch && repeatPassAttention}
-      </label>
+      <section>
+        <label className={classes['username-label']}>Username</label>
+        <Controller
+          control={control}
+          name="username"
+          render={({ field }) => <Input {...field} placeholder="Username" className={classes['username-input']} />}
+          rules={{ required: true, minLength: 3, maxLength: 20 }}
+        />
+      </section>
+      <section>
+        <label className={classes['email-address-label']}>Email address</label>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <Input
+              {...field}
+              // onBlur={field.onBlur}
+              type="email"
+              className={classes['email-address-input']}
+              placeholder={'Email address'}
+            ></Input>
+          )}
+          rules={{
+            required: true,
+            pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: 'invalid email address' },
+          }}
+        />
+      </section>
+      <section>
+        <label className={classes['password-label']}>Password</label>
+        <Controller
+          control={control}
+          name="password"
+          render={({ field }) => (
+            <Input.Password
+              {...field}
+              type="password"
+              className={classes['password-input']}
+              iconRender={() => {}}
+              placeholder={'Password'}
+            />
+          )}
+          rules={{
+            required: true,
+            minLength: { value: 6, message: 'Your password needs to be at least 6 characters.' },
+            maxLength: 40,
+          }}
+        />
+        {errors.password && <div className={classes['wrong-pass']}>{errors.password.message}</div>}
+      </section>
+      <section>
+        <label className={classes['repeat-password-label']}>Repeat Password</label>
+        <Controller
+          control={control}
+          name="repeatPassword"
+          render={({ field }) => (
+            <Input.Password
+              {...field}
+              type="password"
+              className={classes['repeat-password-input']}
+              iconRender={() => {}}
+              placeholder={'Repeat Password'}
+            />
+          )}
+          rules={{
+            required: true,
+            validate: (value) => value === password.current || 'Passwords must match',
+          }}
+        />
+        {errors.repeatPassword && <div className={classes['pass-not-match']}>{errors.repeatPassword.message}</div>}
+      </section>
       <Divider className={classes.divider}></Divider>
-      <Checkbox className={classes.agreed} checked onChange={onChange}>
-        I agree to the processing of my personal information
-      </Checkbox>
-      <Button type="primary" className={classes['create-button']}>
+      <section className={classes.agreed}>
+        <Controller
+          control={control}
+          name="Checkbox"
+          render={({ field: { value, onChange } }) => (
+            <Checkbox
+              required
+              checked={value}
+              onChange={(e) => {
+                onChange(e.target.checked);
+              }}
+            />
+          )}
+        />
+        <label>I agree to the processing of my personal information</label>
+      </section>
+      <Button type="primary" className={classes['create-button']} htmlType="submit">
         Create
       </Button>
       <div className={classes['sign-in-text']}>
@@ -54,7 +130,8 @@ const NewAccount = () => {
           Sign In.
         </Link>
       </div>
-    </for>
+    </Form>
   );
 };
+
 export default NewAccount;

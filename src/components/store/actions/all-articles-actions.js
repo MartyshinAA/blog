@@ -1,4 +1,4 @@
-import { BlogGetInfo } from '../../../services/blog-get-info-service';
+import { BlogGetArticles } from '../../../services/blog-get-all-articles-service';
 
 import { totalCounterOfArticlesActions } from './total-counter-of-articles-actions';
 import { isLoadingActions } from './is-loading-actions';
@@ -13,10 +13,10 @@ const allArticlesActions = (articles) => ({
 export const loadArticles =
   (page = 0) =>
   (dispatch) => {
+    dispatch(isLoadingActions(true));
     dispatch(isErrorActions(false));
-    BlogGetInfo(page)
+    BlogGetArticles(page)
       .then((response) => {
-        dispatch(isLoadingActions(true));
         const { articles, articlesCount } = response.data;
         dispatch(allArticlesActions(articles));
         dispatch(totalCounterOfArticlesActions(articlesCount));

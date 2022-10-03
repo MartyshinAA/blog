@@ -48,12 +48,13 @@
 .wrong-pass,
 .pass-not-match {
   color: #f5222d;
-  font-size: 14px;
+  font-size: small;
 }
 
 .agreed {
   display: flex;
   justify-content: center;
+  gap: 10px;
 }
 
 .sign-in-text {

@@ -7,6 +7,10 @@ import { currentArticleReducer } from './reducers/current-article-reducer';
 // pagination
 import { totalCountOfArticlesReducer } from './reducers/total-counter-of-articles-reducers';
 import { currentPageReducer } from './reducers/current-page-reducer';
+// import { createdAndloginUserReducer } from './reducers/sign-up-reducer';
+import { loginUserReducer } from './reducers/sign-in-reducer';
+import { serverResponseReducer } from './reducers/server-response-reducer';
+import { isLoggedReducer } from './reducers/is-logged-reducer';
 
 const preloadedState = {
   isErrorReducer: false,
@@ -15,6 +19,10 @@ const preloadedState = {
   allArticlesReducer: [],
   totalCountOfArticlesReducer: '',
   currentPageReducer: 1,
+  // createdAndloginUserReducer: {},
+  loginUserReducer: {},
+  serverResponseReducer: {},
+  isLoggedReducer: Boolean,
 };
 
 export const store = configureStore({
@@ -25,6 +33,10 @@ export const store = configureStore({
     allArticlesReducer,
     totalCountOfArticlesReducer,
     currentPageReducer,
+    // createdAndloginUserReducer,
+    loginUserReducer,
+    serverResponseReducer,
+    isLoggedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -35,7 +35,7 @@ h3 {
     overflow: hidden;
     .article-title {
       white-space: wrap;
-      width: 100%;
+      width: fit-content;
       overflow: hidden;
       flex-basis: auto;
       color: #1890ff;
@@ -140,5 +140,6 @@ h3 {
     width: 46px;
     height: 46px;
     margin-left: 12px;
+    border-radius: 50%;
   }
 }

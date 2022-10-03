@@ -29,6 +29,7 @@ h3 {
   &__left-side {
     overflow: hidden;
     .article-title {
+      width: fit-content;
       height: 22px;
       color: #1890ff;
       overflow-y: hidden;
@@ -100,5 +101,6 @@ h3 {
     width: 46px;
     height: 46px;
     margin-left: 12px;
+    border-radius: 50%;
   }
 }
