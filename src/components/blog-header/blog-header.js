@@ -1,19 +1,21 @@
+// header as layout
+
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { Button, message } from 'antd';
+import { Image, Button, message } from 'antd';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { serverResponseActions } from '../store/actions/server-response-actions';
 import { isLogged } from '../store/thunks/is-logged-thunk';
-import photo from '../../img/content/Photo.png';
+import { signInActions } from '../store/actions/sign-in-actions';
+// import photo from '../../img/content/Photo.png';
 
 import classes from './blog-header.module.scss';
 
 const BlogHeader = () => {
-  let logged = false;
-
   const { serverResponseReducer } = useSelector((state) => state);
+  const { loggedUserReducer } = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
@@ -24,7 +26,18 @@ const BlogHeader = () => {
     }
   };
 
+  // const isLoggedUser = () => {
+  //   if (loggedUserReducer.token) {
+  //     message.info(loggedUserReducer.token);
+  //   }
+  // };
+
   useEffect(() => serverResponseMessage(), [serverResponseReducer]);
+  // useEffect(() => isLoggedUser(), [loggedUserReducer]);
+
+  console.log(loggedUserReducer);
+
+  const logged = Boolean(loggedUserReducer.token);
 
   const loggedIn = (
     <div className={classes['title__right-side']}>
@@ -32,10 +45,19 @@ const BlogHeader = () => {
         Create article
       </Link>
       <Link to="/profile" className={classes['title__info-wraper']}>
-        <div className={classes['title__user-name']}>John Doe</div>
-        <img src={photo} className={classes['title__user-photo']}></img>
+        <div className={classes['title__user-name']}>{loggedUserReducer.username}</div>
+        <Image
+          preview={false}
+          src={loggedUserReducer.image}
+          className={classes['title__user-photo']}
+          alt={'avatar'}
+        ></Image>
       </Link>
-      <Button name="log-out" className={classNames(classes['log-out'], classes['sign-log-buttons'])}>
+      <Button
+        name="log-out"
+        className={classNames(classes['log-out'], classes['sign-log-buttons'])}
+        onClick={() => dispatch(signInActions({}))}
+      >
         Log Out
       </Button>
     </div>

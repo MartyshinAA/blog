@@ -8,7 +8,7 @@ import { currentArticleReducer } from './reducers/current-article-reducer';
 import { totalCountOfArticlesReducer } from './reducers/total-counter-of-articles-reducers';
 import { currentPageReducer } from './reducers/current-page-reducer';
 // import { createdAndloginUserReducer } from './reducers/sign-up-reducer';
-import { loginUserReducer } from './reducers/sign-in-reducer';
+import { loggedUserReducer } from './reducers/sign-in-reducer';
 import { serverResponseReducer } from './reducers/server-response-reducer';
 import { isLoggedReducer } from './reducers/is-logged-reducer';
 
@@ -20,7 +20,7 @@ const preloadedState = {
   totalCountOfArticlesReducer: '',
   currentPageReducer: 1,
   // createdAndloginUserReducer: {},
-  loginUserReducer: {},
+  loggedUserReducer: {},
   serverResponseReducer: {},
   isLoggedReducer: Boolean,
 };
@@ -34,7 +34,7 @@ export const store = configureStore({
     totalCountOfArticlesReducer,
     currentPageReducer,
     // createdAndloginUserReducer,
-    loginUserReducer,
+    loggedUserReducer,
     serverResponseReducer,
     isLoggedReducer,
   },

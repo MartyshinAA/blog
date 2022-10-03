@@ -70,6 +70,12 @@ $default-button-text-color: #000000bf;
     align-items: center;
   }
 
+  &__user-photo {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+  }
+
   &__user-name {
     white-space: nowrap;
     margin-right: 10px;

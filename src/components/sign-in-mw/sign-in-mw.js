@@ -1,7 +1,8 @@
 import { Form, Button, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 import { signIn } from '../../components/store/thunks/blog-sign-in-thunk';
 
@@ -12,7 +13,15 @@ const SignIn = () => {
     mode: 'onBlur',
   });
 
+  const { token } = useSelector((state) => state.loggedUserReducer);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      navigate('/');
+    }
+  }, [token]);
 
   const onSubmit = (data) => {
     dispatch(signIn(data));

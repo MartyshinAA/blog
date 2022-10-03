@@ -14,16 +14,29 @@ import SignIn from '../sign-in-mw/sign-in-mw';
 import EditProfile from '../edit-profile-mw';
 import BlogArticles from '../blog-articles';
 import BlogArticle from '../blog-article';
+import { signInActions } from '../store/actions/sign-in-actions';
+
 // import NewArticle from '../new-article-mw';
 
 const App = () => {
   const WrapperUseEffect = () => {
     const { currentPageReducer } = useSelector((state) => state);
+    const { loggedUserReducer } = useSelector((state) => state);
     const dispatch = useDispatch();
     const currentOffset = currentPageReducer * 5 - 5;
     useEffect(() => {
       dispatch(loadArticles(currentOffset));
     }, [currentPageReducer]);
+
+    useEffect(() => {
+      if (JSON.parse(localStorage.getItem('loggedUserReducer'))) {
+        dispatch(signInActions(JSON.parse(localStorage.getItem('loggedUserReducer'))));
+      }
+    }, []);
+
+    useEffect(() => {
+      localStorage.setItem('loggedUserReducer', JSON.stringify(loggedUserReducer));
+    }, [loggedUserReducer]);
   };
 
   return (

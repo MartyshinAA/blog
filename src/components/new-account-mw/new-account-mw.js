@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Form, Checkbox, Button, Input, Divider } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { signUp } from '../../components/store/thunks/blog-sign-up-thunk';
 
@@ -19,7 +19,15 @@ const NewAccount = () => {
     mode: 'onBlur',
   });
 
+  const { token } = useSelector((state) => state.loggedUserReducer);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      navigate('/');
+    }
+  }, [token]);
 
   const onSubmit = (data) => {
     dispatch(signUp(data));

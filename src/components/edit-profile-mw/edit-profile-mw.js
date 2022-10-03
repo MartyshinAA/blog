@@ -1,5 +1,9 @@
 import { Form, Button, Input } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { editProfile } from '../store/thunks/blog-edit-profile-thunk';
 
 import classes from './edit-profile-mw.module.scss';
 
@@ -13,9 +17,14 @@ const EditProfile = () => {
     mode: 'onBlur',
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { token } = useSelector((state) => state.loggedUserReducer);
+
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data));
+    dispatch(editProfile(data, token));
     reset();
+    navigate('/');
   };
 
   return (
@@ -76,7 +85,7 @@ const EditProfile = () => {
         <label className={classes['avatar-image-label']}>Avatar image (url)</label>
         <Controller
           control={control}
-          name="avatarImage"
+          name="image"
           render={({ field }) => (
             <Input
               {...field}
