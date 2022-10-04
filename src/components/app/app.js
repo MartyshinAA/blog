@@ -5,6 +5,8 @@ import 'antd/dist/antd.min.css';
 import { useEffect } from 'react';
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
+// added encryption just in case
+import SecureLS from 'secure-ls';
 
 import { loadArticles } from '../store/actions/all-articles-actions';
 import { store } from '../store/store';
@@ -19,6 +21,7 @@ import { signInActions } from '../store/actions/sign-in-actions';
 // import NewArticle from '../new-article-mw';
 
 const App = () => {
+  const ls = new SecureLS();
   const WrapperUseEffect = () => {
     const { currentPageReducer } = useSelector((state) => state);
     const { loggedUserReducer } = useSelector((state) => state);
@@ -29,13 +32,13 @@ const App = () => {
     }, [currentPageReducer]);
 
     useEffect(() => {
-      if (JSON.parse(localStorage.getItem('loggedUserReducer'))) {
-        dispatch(signInActions(JSON.parse(localStorage.getItem('loggedUserReducer'))));
+      if (JSON.parse(ls.get('loggedUserReducer'))) {
+        dispatch(signInActions(JSON.parse(ls.get('loggedUserReducer'))));
       }
     }, []);
 
     useEffect(() => {
-      localStorage.setItem('loggedUserReducer', JSON.stringify(loggedUserReducer));
+      ls.set('loggedUserReducer', JSON.stringify(loggedUserReducer));
     }, [loggedUserReducer]);
   };
 
