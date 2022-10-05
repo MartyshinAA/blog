@@ -16,9 +16,8 @@ import SignIn from '../sign-in-mw/sign-in-mw';
 import EditProfile from '../edit-profile-mw';
 import BlogArticles from '../blog-articles';
 import BlogArticle from '../blog-article';
+import CreateEditArticle from '../create-edit-article-mw';
 import { signInActions } from '../store/actions/sign-in-actions';
-
-// import NewArticle from '../new-article-mw';
 
 const App = () => {
   const ls = new SecureLS();
@@ -49,6 +48,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<BlogArticles />} />
         <Route path="/articles" element={<BlogArticles />} />
+        <Route path="/new-article" element={<CreateEditArticle />} />
+        <Route path="/articles/:slug/edit" element={<CreateEditArticle />} />
         <Route path="/articles/:slug" element={<BlogArticle />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<NewAccount />} />

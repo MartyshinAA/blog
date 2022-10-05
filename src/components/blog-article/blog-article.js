@@ -12,8 +12,6 @@ import '../delete-mw/delete-mw.scss';
 import classes from './blog-article.module.scss';
 
 const BlogArticle = () => {
-  let logged = true;
-
   //Popconfirm content
 
   const text = 'Are you sure to delete this article?';
@@ -21,6 +19,7 @@ const BlogArticle = () => {
   const confirm = () => {
     message.info('Article deleted.');
   };
+
   //Logged buttons content
 
   const buttons = (
@@ -45,11 +44,14 @@ const BlogArticle = () => {
 
   //Store content
 
+  const { token } = useSelector((state) => state.loggedUserReducer);
   const { isErrorReducer } = useSelector((state) => state);
   const { isLoadingReducer } = useSelector((state) => state);
   const { currentArticleReducer } = useSelector((state) => state);
 
-  console.log(isLoadingReducer);
+  let logged = token;
+
+  // console.log(isLoadingReducer);
 
   const dispatch = useDispatch();
   const { slug } = useParams();
@@ -118,7 +120,9 @@ const BlogArticle = () => {
           <div className={classes['blog-article__text']}>{description}</div>
           <div className={classes['blog-article__button-wrapper']}>{logged && buttons}</div>
         </div>
-        <ReactMarkdown className={classes['text-content']}>{body}</ReactMarkdown>
+        <div data-color-mode="light">
+          <ReactMarkdown className={classes['text-content']}>{body}</ReactMarkdown>
+        </div>
       </div>
     );
   }

@@ -2,8 +2,8 @@ import { Skeleton } from 'antd';
 
 import classes from './articles-skeleton-view.module.scss';
 
-const ArticlesSkeletonView = ({ cards }) => {
-  return Array(cards)
+const ArticlesSkeletonView = ({ skeleton }) => {
+  return Array(skeleton)
     .fill(0)
     .map((item, idx) => (
       <li key={idx} className={classes['articles-skeleton-view']}>
