@@ -32,13 +32,7 @@ const CreateEditArticle = () => {
 
   const tagsContainer = tags.map((_, idx) => (
     <div key={idx} className={classes['tag-wrapper']}>
-      <Controller
-        control={control}
-        name={`tag${idx}`}
-        render={({ field }) => (
-          <Input {...field} type="text" className={classes['tag-input']} placeholder={'Tag'}></Input>
-        )}
-      />
+      <Input name={`tag${idx}`} type="text" className={classes['tag-input']} placeholder={'Tag'}></Input>
       <Button
         ghost
         danger
