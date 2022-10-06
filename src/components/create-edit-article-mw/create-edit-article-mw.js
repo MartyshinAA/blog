@@ -1,6 +1,6 @@
 import { Form, Button, Input } from 'antd';
-import { useEffect, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useEffect } from 'react';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -15,52 +15,44 @@ const headerEdit = <h2 className={classes['article-header']}>Edit article</h2>;
 const headerCreate = <h2 className={classes['article-header']}>Create new article</h2>;
 
 const CreateEditArticle = () => {
+  const defaultValues = {
+    tags: [
+      {
+        name: 'Tag',
+      },
+    ],
+  };
+
   const { handleSubmit, reset, control } = useForm({
     mode: 'onBlur',
+    defaultValues,
+
+    // name: 'tags',
   });
 
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'tag',
+  });
+
+  console.log(fields);
   const { token } = useSelector((state) => state.loggedUserReducer);
 
-  const [tags, setTags] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { slug } = useParams();
   // console.log(slug);
   // console.log(useParams());
-  // console.log(tags);
   const edit = slug;
-
-  const tagsContainer = tags.map((_, idx) => (
-    <div key={idx} className={classes['tag-wrapper']}>
-      <Input name={`tag${idx}`} type="text" className={classes['tag-input']} placeholder={'Tag'}></Input>
-      <Button
-        ghost
-        danger
-        type="primary"
-        className={classes['delete-button']}
-        onClick={() => {
-          const newTags = tagsContainer.filter((tag) => +tag.key !== idx);
-          // return newTags;
-          // console.log(newTags);
-          setTags([...newTags]);
-        }}
-      >
-        Delete
-      </Button>
-    </div>
-  ));
-
-  // console.log(tags);
-  // console.log(tagsContainer);
 
   useEffect(() => {
     if (!token) {
       navigate('/sign-in');
     }
-  }, [token, tagsContainer]);
+  }, [token]);
 
   useEffect(() => {
-    setTags([0]);
+    append({ name: '' });
   }, []);
 
   const onSubmit = (data) => {
@@ -118,15 +110,34 @@ const CreateEditArticle = () => {
           required: true,
         }}
       />
-      <h3 className={classes['tags-title']}>Tags</h3>
+      <label className={classes['tags-title']}>Tags</label>
       <div className={classes['tag-wrapper-add-tag']}>
-        <ul>{tagsContainer}</ul>
+        <ul className={classes.tags}>
+          {fields.map((item, idx) => {
+            return (
+              <li key={item.id} className={classes['tag-wrapper']}>
+                <Input name={`tag${idx}`} type="text" className={classes['tag-input']} placeholder={'Tag'}></Input>
+                <Button
+                  ghost
+                  danger
+                  type="primary"
+                  className={classes['delete-button']}
+                  onClick={() => {
+                    remove(idx);
+                  }}
+                >
+                  Delete
+                </Button>
+              </li>
+            );
+          })}
+        </ul>
         <Button
           ghost
           type="primary"
           className={classes['add-button']}
           onClick={() => {
-            setTags([...tags, tags.push()]);
+            append({ name: '' });
           }}
         >
           Add tag
@@ -138,4 +149,5 @@ const CreateEditArticle = () => {
     </Form>
   );
 };
+
 export default CreateEditArticle;
