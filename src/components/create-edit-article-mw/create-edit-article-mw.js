@@ -122,8 +122,15 @@ const CreateEditArticle = () => {
                   rules={{
                     validate: (match) => {
                       const tags = Object.values(getValues(`tags`));
-                      const isTagInArray = tags.slice(0, -1).includes(match);
-                      return isTagInArray && 'Your tag is not unique';
+                      // console.log(match);
+                      console.log(idx);
+                      let tagsCopy = [...tags];
+                      const isTagInArray = tagsCopy.splice(idx, 1);
+                      // console.log(isTagInArray.includes(match));
+                      console.log(tagsCopy.includes(match));
+                      console.log(tags);
+                      console.log(isTagInArray);
+                      return tagsCopy.includes(match) && 'Your tag is not unique';
                     },
                   }}
                 />
