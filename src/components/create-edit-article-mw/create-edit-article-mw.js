@@ -15,18 +15,15 @@ const headerEdit = <h2 className={classes['article-header']}>Edit article</h2>;
 const headerCreate = <h2 className={classes['article-header']}>Create new article</h2>;
 
 const CreateEditArticle = () => {
-  const defaultValues = {
-    tags: [
-      {
-        name: 'Tag',
-      },
-    ],
-  };
-
-  const { handleSubmit, reset, control } = useForm({
+  const {
+    formState: { errors },
+    handleSubmit,
+    reset,
+    resetField,
+    control,
+    getValues,
+  } = useForm({
     mode: 'onBlur',
-    defaultValues,
-
     // name: 'tags',
   });
 
@@ -35,7 +32,7 @@ const CreateEditArticle = () => {
     name: 'tag',
   });
 
-  console.log(fields);
+  // console.log(fields);
   const { token } = useSelector((state) => state.loggedUserReducer);
 
   const dispatch = useDispatch();
@@ -116,18 +113,33 @@ const CreateEditArticle = () => {
           {fields.map((item, idx) => {
             return (
               <li key={item.id} className={classes['tag-wrapper']}>
-                <Input name={`tag${idx}`} type="text" className={classes['tag-input']} placeholder={'Tag'}></Input>
+                <Controller
+                  control={control}
+                  name={`tags[tag${idx}]`}
+                  render={({ field }) => (
+                    <Input {...field} type="text" className={classes['tag-input']} placeholder={'Tag'}></Input>
+                  )}
+                  rules={{
+                    validate: (match) => {
+                      const tags = Object.values(getValues(`tags`));
+                      const isTagInArray = tags.slice(0, -1).includes(match);
+                      return isTagInArray && 'Your tag is not unique';
+                    },
+                  }}
+                />
                 <Button
                   ghost
                   danger
                   type="primary"
                   className={classes['delete-button']}
                   onClick={() => {
+                    resetField('tags');
                     remove(idx);
                   }}
                 >
                   Delete
                 </Button>
+                {getValues(`tags`) && <div>{errors.tags[`tag${idx}`]?.message}</div>}
               </li>
             );
           })}

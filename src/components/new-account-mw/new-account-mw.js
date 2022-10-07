@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Form, Checkbox, Button, Input, Divider } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
@@ -12,9 +12,9 @@ const NewAccount = () => {
   const {
     formState: { errors },
     handleSubmit,
+    getValues,
     reset,
     control,
-    watch,
   } = useForm({
     mode: 'onBlur',
   });
@@ -33,9 +33,6 @@ const NewAccount = () => {
     dispatch(signUp(data));
     reset();
   };
-
-  const password = useRef({});
-  password.current = watch('password', '');
 
   return (
     <Form onFinish={handleSubmit(onSubmit)} className={classes['create-new-account-mw']}>
@@ -107,7 +104,10 @@ const NewAccount = () => {
           )}
           rules={{
             required: true,
-            validate: (value) => value === password.current || 'Passwords must match',
+            validate: (match) => {
+              const password = getValues('password');
+              return match === password || 'Password must match';
+            },
           }}
         />
         {errors.repeatPassword && <div className={classes['pass-not-match']}>{errors.repeatPassword.message}</div>}
