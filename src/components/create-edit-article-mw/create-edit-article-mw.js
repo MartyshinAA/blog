@@ -19,20 +19,17 @@ const CreateEditArticle = () => {
     formState: { errors },
     handleSubmit,
     reset,
-    resetField,
     control,
     getValues,
   } = useForm({
     mode: 'onBlur',
-    // name: 'tags',
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'tag',
+    name: 'tags',
   });
 
-  // console.log(fields);
   const { token } = useSelector((state) => state.loggedUserReducer);
 
   const dispatch = useDispatch();
@@ -115,22 +112,18 @@ const CreateEditArticle = () => {
               <li key={item.id} className={classes['tag-wrapper']}>
                 <Controller
                   control={control}
-                  name={`tags[tag${idx}]`}
+                  name={`tags[${idx}].name`}
                   render={({ field }) => (
                     <Input {...field} type="text" className={classes['tag-input']} placeholder={'Tag'}></Input>
                   )}
                   rules={{
                     validate: (match) => {
-                      const tags = Object.values(getValues(`tags`));
-                      // console.log(match);
-                      console.log(idx);
-                      let tagsCopy = [...tags];
-                      const isTagInArray = tagsCopy.splice(idx, 1);
-                      // console.log(isTagInArray.includes(match));
-                      console.log(tagsCopy.includes(match));
-                      console.log(tags);
-                      console.log(isTagInArray);
-                      return tagsCopy.includes(match) && 'Your tag is not unique';
+                      const tags = getValues(`tags`);
+                      const tagsArray = tags.map((tag) => tag.name);
+                      const tagsArrayCopy = [...tagsArray];
+                      tagsArrayCopy.splice(idx, 1);
+                      const isDuoble = tagsArrayCopy.includes(match);
+                      return !isDuoble || 'Your tag is not unique';
                     },
                   }}
                 />
@@ -140,13 +133,14 @@ const CreateEditArticle = () => {
                   type="primary"
                   className={classes['delete-button']}
                   onClick={() => {
-                    resetField('tags');
                     remove(idx);
                   }}
                 >
                   Delete
                 </Button>
-                {getValues(`tags`) && errors.tags && <div>{errors.tags[`tag${idx}`]?.message}</div>}
+                {getValues(`tags`) && errors.tags && (
+                  <div className={classes['not-unique-tag']}>{errors.tags[idx]?.name.message}</div>
+                )}
               </li>
             );
           })}
