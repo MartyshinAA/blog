@@ -146,7 +146,7 @@ const CreateEditArticle = () => {
                 >
                   Delete
                 </Button>
-                {getValues(`tags`) && <div>{errors.tags[`tag${idx}`]?.message}</div>}
+                {getValues(`tags`) && errors.tags && <div>{errors.tags[`tag${idx}`]?.message}</div>}
               </li>
             );
           })}
