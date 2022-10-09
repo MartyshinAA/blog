@@ -3,13 +3,15 @@ import { Skeleton } from 'antd';
 import classes from './articles-skeleton-view.module.scss';
 
 const ArticlesSkeletonView = ({ skeleton }) => {
-  return Array(skeleton)
-    .fill(0)
-    .map((item, idx) => (
-      <li key={idx} className={classes['articles-skeleton-view']}>
-        <Skeleton active paragraph={{ rows: 2 }}></Skeleton>
-      </li>
-    ));
+  return (
+    Array(skeleton)
+      // .fill(0)
+      .map((item, idx) => (
+        <li key={idx} className={classes['articles-skeleton-view']}>
+          <Skeleton active paragraph={{ rows: 2 }}></Skeleton>
+        </li>
+      ))
+  );
 };
 
 export default ArticlesSkeletonView;

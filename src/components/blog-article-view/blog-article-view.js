@@ -36,7 +36,7 @@ const BlogArticleView = (props) => {
                   type="checkbox"
                   id="heart"
                   name="heart"
-                  disabled
+                  // disabled
                   // checked={allTransfers}
                   // onChange={() => dispatch(allTransfersActions())}
                 ></input>

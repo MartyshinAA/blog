@@ -4,7 +4,7 @@ import { isLoadingActions } from './is-loading-actions';
 import { isErrorActions } from './is-error-actions';
 export const CURRENT_ARTICLE = 'CURRENT_ARTICLE';
 
-const currentArticleActions = (article) => ({
+export const currentArticleActions = (article) => ({
   type: CURRENT_ARTICLE,
   article,
 });

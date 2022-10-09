@@ -11,6 +11,8 @@ import { currentPageReducer } from './reducers/current-page-reducer';
 import { loggedUserReducer } from './reducers/sign-in-reducer';
 import { serverResponseReducer } from './reducers/server-response-reducer';
 import { isLoggedReducer } from './reducers/is-logged-reducer';
+import { deleteArticleReducer } from './reducers/delete-article-reducer';
+import { editArticleReducer } from './reducers/edit-article-reducer';
 
 const preloadedState = {
   isErrorReducer: false,
@@ -23,6 +25,8 @@ const preloadedState = {
   loggedUserReducer: {},
   serverResponseReducer: {},
   isLoggedReducer: Boolean,
+  deleteArticleReducer: '',
+  editArticleReducer: '',
 };
 
 export const store = configureStore({
@@ -37,6 +41,8 @@ export const store = configureStore({
     loggedUserReducer,
     serverResponseReducer,
     isLoggedReducer,
+    deleteArticleReducer,
+    editArticleReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

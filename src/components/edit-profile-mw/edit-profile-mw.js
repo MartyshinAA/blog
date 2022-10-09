@@ -1,7 +1,7 @@
 import { Form, Button, Input } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import { editProfile } from '../store/thunks/blog-edit-profile-thunk';
 
@@ -18,13 +18,13 @@ const EditProfile = () => {
   });
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { token } = useSelector((state) => state.loggedUserReducer);
+  // const navigate = useNavigate();
+  const { username, email, token, image } = useSelector((state) => state.loggedUserReducer);
 
   const onSubmit = (data) => {
     dispatch(editProfile(data, token));
     reset();
-    navigate('/');
+    // navigate('/');
   };
 
   return (
@@ -35,7 +35,9 @@ const EditProfile = () => {
         <Controller
           control={control}
           name="username"
-          render={({ field }) => <Input {...field} placeholder="Username" className={classes['username-input']} />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Username" className={classes['username-input']} defaultValue={username} />
+          )}
           rules={{ required: true }}
         />
       </section>
@@ -51,6 +53,7 @@ const EditProfile = () => {
               type="email"
               className={classes['email-address-input']}
               placeholder={'Email address'}
+              defaultValue={email}
             ></Input>
           )}
           rules={{
@@ -93,6 +96,7 @@ const EditProfile = () => {
               type="url"
               className={classes['avatar-image-input']}
               placeholder={'Avatar image'}
+              defaultValue={image}
             ></Input>
           )}
           // rules={{

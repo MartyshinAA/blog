@@ -1,23 +1,68 @@
 import ReactMarkdown from 'react-markdown';
 import { Tag, Button, message, Popconfirm, Image } from 'antd';
 import { format } from 'date-fns';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { loadArticle } from '../store/actions/current-article-actions';
 import ArticlesSkeletonView from '../articles-skeleton-view';
+import { deleteArticle } from '../store/thunks/delete-article-thunk';
+// import { editArticle } from '../store/thunks/edit-article-thunk';
 
 import '../delete-mw/delete-mw.scss';
 import classes from './blog-article.module.scss';
 
 const BlogArticle = () => {
+  //Store content
+
+  const { token } = useSelector((state) => state.loggedUserReducer);
+  const { isErrorReducer } = useSelector((state) => state);
+  const { isLoadingReducer } = useSelector((state) => state);
+  const { currentArticleReducer } = useSelector((state) => state);
+  const { loggedUserReducer } = useSelector((state) => state);
+  // const { deleteArticleReducer } = useSelector((state) => state);
+
+  let logged = token;
+
+  // console.log(isLoadingReducer);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { slug } = useParams();
+  console.log(slug);
+
+  //Startup action
+
+  useEffect(() => {
+    dispatch(loadArticle(slug));
+  }, []);
+
+  // console.log(deleteArticleReducer, navigate);
+
+  // useEffect(() => {
+  //   navigate('/');
+  // }, [deleteArticleReducer]);
+
+  //fill default content if data not uploaded
+
+  let content = (
+    <ul>
+      <ArticlesSkeletonView cards={1} />
+    </ul>
+  );
+
   //Popconfirm content
+
+  console.log(navigate);
 
   const text = 'Are you sure to delete this article?';
 
   const confirm = () => {
+    console.log(slug, token);
+    dispatch(deleteArticle(slug, token));
     message.info('Article deleted.');
+    // не совсем верное решение, т.к. сервер может не ответить и лучше поставить это действие в thunk но не хочется смешивать логику и рендеринг
+    setTimeout(() => navigate('/'), 1000);
   };
 
   //Logged buttons content
@@ -37,44 +82,16 @@ const BlogArticle = () => {
         </Button>
       </Popconfirm>
       <Button ghost type="primary" className={classes['edit-button']}>
-        Edit
+        <Link to={`/articles/${slug}/edit`}>Edit</Link>
       </Button>
     </div>
-  );
-
-  //Store content
-
-  const { token } = useSelector((state) => state.loggedUserReducer);
-  const { isErrorReducer } = useSelector((state) => state);
-  const { isLoadingReducer } = useSelector((state) => state);
-  const { currentArticleReducer } = useSelector((state) => state);
-
-  let logged = token;
-
-  // console.log(isLoadingReducer);
-
-  const dispatch = useDispatch();
-  const { slug } = useParams();
-
-  //Startup action
-
-  useEffect(() => {
-    dispatch(loadArticle(slug));
-  }, []);
-
-  //fill default content if data not uploaded
-
-  let content = (
-    <ul>
-      <ArticlesSkeletonView cards={1} />
-    </ul>
   );
 
   //if data is uploaded
 
   if (Object.keys(currentArticleReducer).length > 0) {
     let { title, description, body, createdAt, favoritesCount, tagList } = currentArticleReducer;
-    let { username, image } = currentArticleReducer.author;
+    const { username, image } = currentArticleReducer.author;
     const tags = tagList.map((tag, idx) => {
       return (
         <Tag key={idx} className={classes['blog-article-view__tag']}>
@@ -94,7 +111,7 @@ const BlogArticle = () => {
                   type="checkbox"
                   id="heart"
                   name="heart"
-                  disabled
+                  disabled={!logged}
                   // checked={allTransfers}
                   // onChange={() => dispatch(allTransfersActions())}
                 ></input>
@@ -118,7 +135,9 @@ const BlogArticle = () => {
         </div>
         <div className={classes['blog-article__short-text-wrapper']}>
           <div className={classes['blog-article__text']}>{description}</div>
-          <div className={classes['blog-article__button-wrapper']}>{logged && buttons}</div>
+          <div className={classes['blog-article__button-wrapper']}>
+            {logged && loggedUserReducer.username === username && buttons}
+          </div>
         </div>
         <div data-color-mode="light">
           <ReactMarkdown className={classes['text-content']}>{body}</ReactMarkdown>

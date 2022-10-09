@@ -6,8 +6,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const { TextArea } = Input;
 
+// import { currentArticleActions } from '../store/actions/current-article-actions';
+// import { currentArticleReducer } from '../store/reducers/current-article-reducer';
 import { createArticle } from '../../components/store/thunks/create-article-thunk';
-// import { editArticle } from '../../components/store/thunks/blog-sign-up-thunk';
+import { editArticle } from '../../components/store/thunks/edit-article-thunk';
 
 import classes from './create-edit-article-mw.module.scss';
 
@@ -23,6 +25,13 @@ const CreateEditArticle = () => {
     getValues,
   } = useForm({
     mode: 'onBlur',
+    defaultValues: {
+      tags: [
+        {
+          name: '',
+        },
+      ],
+    },
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -30,14 +39,18 @@ const CreateEditArticle = () => {
     name: 'tags',
   });
 
-  const { token } = useSelector((state) => state.loggedUserReducer);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { slug } = useParams();
-  // console.log(slug);
-  // console.log(useParams());
   const edit = slug;
+  console.log(edit);
+
+  // useEffect(() => dispatch(currentArticleActions('')), [currentArticleReducer]);
+
+  const { token } = useSelector((state) => state.loggedUserReducer);
+  const { title, description, body, tagList } = useSelector((state) => state.currentArticleReducer);
+  // console.log(title, description, body, tagList);
+  console.log(tagList);
 
   useEffect(() => {
     if (!token) {
@@ -45,13 +58,13 @@ const CreateEditArticle = () => {
     }
   }, [token]);
 
-  useEffect(() => {
-    append({ name: '' });
-  }, []);
-
   const onSubmit = (data) => {
+    if (edit) {
+      dispatch(editArticle(slug, data, token));
+    } else {
+      dispatch(createArticle(data, token));
+    }
     console.log(data);
-    dispatch(createArticle(data, token));
     reset();
   };
 
@@ -63,7 +76,13 @@ const CreateEditArticle = () => {
         control={control}
         name="title"
         render={({ field }) => (
-          <Input {...field} type="text" className={classes['title-input']} placeholder={'Title'}></Input>
+          <Input
+            {...field}
+            type="text"
+            className={classes['title-input']}
+            placeholder={'Title'}
+            defaultValue={title}
+          ></Input>
         )}
         rules={{
           required: true,
@@ -72,13 +91,14 @@ const CreateEditArticle = () => {
       <label className={classes['short-description-label']}>Short description</label>
       <Controller
         control={control}
-        name="shortDescription"
+        name="description"
         render={({ field }) => (
           <Input
             {...field}
             type="text"
             className={classes['short-description-input']}
             placeholder={'Short description'}
+            defaultValue={description}
           ></Input>
         )}
         rules={{
@@ -88,7 +108,7 @@ const CreateEditArticle = () => {
       <label className={classes['text-label']}>Text</label>
       <Controller
         control={control}
-        name="text"
+        name="body"
         render={({ field }) => (
           <TextArea
             {...field}
@@ -96,6 +116,7 @@ const CreateEditArticle = () => {
             type="text"
             className={classes['textarea-input']}
             placeholder={'Text'}
+            defaultValue={body}
           ></TextArea>
         )}
         rules={{
@@ -112,7 +133,13 @@ const CreateEditArticle = () => {
                   control={control}
                   name={`tags[${idx}].name`}
                   render={({ field }) => (
-                    <Input {...field} type="text" className={classes['tag-input']} placeholder={'Tag'}></Input>
+                    <Input
+                      {...field}
+                      type="text"
+                      className={classes['tag-input']}
+                      placeholder={'Tag'}
+                      // defaultValue={tagList.map((tag) => tag[idx].name)}
+                    ></Input>
                   )}
                   rules={{
                     validate: (match) => {

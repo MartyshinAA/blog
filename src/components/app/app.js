@@ -31,7 +31,7 @@ const App = () => {
     }, [currentPageReducer]);
 
     useEffect(() => {
-      if (JSON.parse(ls.get('loggedUserReducer'))) {
+      if (ls.get('loggedUserReducer')) {
         dispatch(signInActions(JSON.parse(ls.get('loggedUserReducer'))));
       }
     }, []);
@@ -49,8 +49,8 @@ const App = () => {
         <Route path="/" element={<BlogArticles />} />
         <Route path="/articles" element={<BlogArticles />} />
         <Route path="/new-article" element={<CreateEditArticle />} />
-        <Route path="/articles/:slug/edit" element={<CreateEditArticle />} />
         <Route path="/articles/:slug" element={<BlogArticle />} />
+        <Route path="/articles/:slug/edit" element={<CreateEditArticle />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<NewAccount />} />
         <Route path="/profile" element={<EditProfile />} />

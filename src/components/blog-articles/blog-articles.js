@@ -1,14 +1,20 @@
-import { useSelector } from 'react-redux';
-import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
 
+import { loadArticles } from '../store/actions/all-articles-actions';
 import ArticlesSkeletonView from '../articles-skeleton-view';
 import BlogArticleView from '../blog-article-view';
 import BlogPagination from '../blog-pagination';
 
 const BlogArticles = () => {
+  const dispatch = useDispatch();
   const { allArticlesReducer } = useSelector((state) => state);
   const { isErrorReducer } = useSelector((state) => state);
   const { isLoadingReducer } = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(loadArticles());
+  }, []);
 
   const article = allArticlesReducer.map((props) => {
     return (
@@ -25,6 +31,7 @@ const BlogArticles = () => {
     </ul>
   );
   const content = status && <ul>{article}</ul>;
+  console.log(content);
 
   return (
     <>
