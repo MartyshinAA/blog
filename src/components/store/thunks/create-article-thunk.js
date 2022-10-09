@@ -1,30 +1,30 @@
 import axios from 'axios';
 
 import { serverResponseActions } from '../actions/server-response-actions';
-import { signInActions } from '../actions/sign-in-actions';
+import { createArticleActions } from '../actions/create-article-actions';
 // import { signUpActions } from '../actions/sign-up-actions';
 
-export const editProfile = (person, token) => (dispatch) => {
-  const { username, email, password, image } = person;
-  console.log(username, email, password, image);
+export const createArticle = (article, token) => (dispatch) => {
+  const { title, description, body, tagList } = article;
+  // console.log(title, description, body, tagList);
   try {
     axios({
       method: 'PUT',
-      url: 'https://blog.kata.academy/api/user',
+      url: 'https://blog.kata.academy/api/articles',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       data: {
-        user: {
-          username,
-          email,
-          password,
-          image,
+        article: {
+          title,
+          description,
+          body,
+          tagList,
         },
       },
     })
-      .then((response) => dispatch(signInActions(response.data.user)))
+      .then((response) => dispatch(createArticleActions(response.data.user)))
       .catch((error) => dispatch(serverResponseActions(error.response.data.errors)));
   } catch (error) {
     console.error(error);

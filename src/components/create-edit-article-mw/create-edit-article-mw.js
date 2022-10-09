@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const { TextArea } = Input;
 
-// import { createArticle } from '../../components/store/thunks/blog-sign-up-thunk';
+import { createArticle } from '../../components/store/thunks/create-article-thunk';
 // import { editArticle } from '../../components/store/thunks/blog-sign-up-thunk';
 
 import classes from './create-edit-article-mw.module.scss';
@@ -51,10 +51,8 @@ const CreateEditArticle = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    if (!data) {
-      dispatch(data);
-      reset();
-    }
+    dispatch(createArticle(data, token));
+    reset();
   };
 
   return (

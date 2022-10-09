@@ -6,7 +6,7 @@ import { signInActions } from '../actions/sign-in-actions';
 
 export const editProfile = (person, token) => (dispatch) => {
   const { username, email, password, image } = person;
-  console.log(username, email, password, image);
+  // console.log(username, email, password, image);
   try {
     axios({
       method: 'PUT',
