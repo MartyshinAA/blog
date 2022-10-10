@@ -9,6 +9,7 @@ import { loadArticle } from '../store/actions/current-article-actions';
 import ArticlesSkeletonView from '../articles-skeleton-view';
 import { deleteArticle } from '../store/thunks/delete-article-thunk';
 import { likeArticle } from '../store/thunks/like-article-thunk';
+import { dislikeArticle } from '../store/thunks/dislike-article-thunk';
 
 // import { editArticle } from '../store/thunks/edit-article-thunk';
 
@@ -92,8 +93,15 @@ const BlogArticle = () => {
   //if data is uploaded
 
   if (Object.keys(currentArticleReducer).length > 0) {
-    let { title, description, body, createdAt, favoritesCount, tagList } = currentArticleReducer;
+    let { title, description, body, createdAt, favorited, favoritesCount, tagList } = currentArticleReducer;
     const { username, image } = currentArticleReducer.author;
+    const setLikeDislike = () => {
+      if (favorited) {
+        dispatch(dislikeArticle(slug, token));
+      } else {
+        dispatch(likeArticle(slug, token));
+      }
+    };
     const tags = tagList.map((tag, idx) => {
       return (
         <Tag key={idx} className={classes['blog-article-view__tag']}>
@@ -114,8 +122,8 @@ const BlogArticle = () => {
                   id="heart"
                   name="heart"
                   disabled={!logged}
-                  // checked={allTransfers}
-                  onChange={() => dispatch(likeArticle(slug, token))}
+                  checked={favorited}
+                  onChange={() => setLikeDislike()}
                 ></input>
                 <span className={classes['checkbox__span']}></span>
                 {favoritesCount}

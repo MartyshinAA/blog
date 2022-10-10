@@ -45,8 +45,6 @@ const CreateEditArticle = () => {
   const edit = slug;
   console.log(edit);
 
-  // useEffect(() => dispatch(currentArticleActions('')), [currentArticleReducer]);
-
   const { token } = useSelector((state) => state.loggedUserReducer);
   const { title, description, body, tagList } = useSelector((state) => state.currentArticleReducer);
   // console.log(title, description, body, tagList);
@@ -62,6 +60,7 @@ const CreateEditArticle = () => {
     if (edit) {
       dispatch(editArticle(slug, data, token));
     } else {
+      // dispatch(currentArticleActions(''));
       dispatch(createArticle(data, token));
     }
     console.log(data);

@@ -15,8 +15,7 @@ export const loadArticle = (slug) => (dispatch) => {
   BlogGetArticle(slug)
     .then((response) => {
       dispatch(isLoadingActions(true));
-      const { article } = response.data;
-      dispatch(currentArticleActions(article));
+      dispatch(currentArticleActions(response.data.article));
       dispatch(isLoadingActions(false));
     })
     .catch(() => dispatch(isErrorActions(true)));

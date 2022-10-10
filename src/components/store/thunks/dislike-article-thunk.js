@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { serverResponseActions } from '../actions/server-response-actions';
-import { dislikeArticleActions } from '../actions/dislike-article-actions';
+import { currentArticleActions } from '../actions/current-article-actions';
 
 export const dislikeArticle = (slug, token) => (dispatch) => {
   console.log(slug);
@@ -15,7 +15,8 @@ export const dislikeArticle = (slug, token) => (dispatch) => {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then(() => dispatch(dislikeArticleActions(`${slug}`)))
+      .then((response) => dispatch(currentArticleActions(response.data.article)))
+
       .catch((error) => dispatch(serverResponseActions(error.response.data.errors)));
   } catch (error) {
     console.error(error);
