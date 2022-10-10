@@ -13,6 +13,8 @@ import { serverResponseReducer } from './reducers/server-response-reducer';
 import { isLoggedReducer } from './reducers/is-logged-reducer';
 import { deleteArticleReducer } from './reducers/delete-article-reducer';
 import { editArticleReducer } from './reducers/edit-article-reducer';
+import { likeArticleReducer } from './reducers/like-article-reducer';
+import { dislikeArticleReducer } from './reducers/dislike-article-reducer';
 
 const preloadedState = {
   isErrorReducer: false,
@@ -27,6 +29,8 @@ const preloadedState = {
   isLoggedReducer: Boolean,
   deleteArticleReducer: '',
   editArticleReducer: '',
+  likeArticleReducer: Boolean,
+  dislikeArticleReducer: Boolean,
 };
 
 export const store = configureStore({
@@ -43,6 +47,8 @@ export const store = configureStore({
     isLoggedReducer,
     deleteArticleReducer,
     editArticleReducer,
+    likeArticleReducer,
+    dislikeArticleReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

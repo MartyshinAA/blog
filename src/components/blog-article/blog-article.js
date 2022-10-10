@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loadArticle } from '../store/actions/current-article-actions';
 import ArticlesSkeletonView from '../articles-skeleton-view';
 import { deleteArticle } from '../store/thunks/delete-article-thunk';
+import { likeArticle } from '../store/thunks/like-article-thunk';
+
 // import { editArticle } from '../store/thunks/edit-article-thunk';
 
 import '../delete-mw/delete-mw.scss';
@@ -113,7 +115,7 @@ const BlogArticle = () => {
                   name="heart"
                   disabled={!logged}
                   // checked={allTransfers}
-                  // onChange={() => dispatch(allTransfersActions())}
+                  onChange={() => dispatch(likeArticle(slug, token))}
                 ></input>
                 <span className={classes['checkbox__span']}></span>
                 {favoritesCount}
