@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 
 import { loadArticles } from '../store/actions/all-articles-actions';
+// import { getCurrentArticle } from '../store/thunks/get-current-article-thunk';
 import ArticlesSkeletonView from '../articles-skeleton-view';
 import BlogArticleView from '../blog-article-view';
 import BlogPagination from '../blog-pagination';

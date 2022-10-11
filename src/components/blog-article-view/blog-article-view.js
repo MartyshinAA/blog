@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { likeArticle } from '../store/thunks/like-article-thunk';
-// import { dislikeArticle } from '../store/thunks/dislike-article-thunk';
+import { dislikeArticle } from '../store/thunks/dislike-article-thunk';
 
 import classes from './blog-article-view.module.scss';
 
@@ -13,6 +13,14 @@ const BlogArticleView = (props) => {
   const { slug, title, favoritesCount, tagList, createdAt, description } = props;
   const { username, image } = props.author;
   const { token } = useSelector((state) => state.loggedUserReducer);
+
+  const setLikeDislike = () => {
+    if (favorited) {
+      dispatch(dislikeArticle(slug, token));
+    } else {
+      dispatch(likeArticle(slug, token));
+    }
+  };
 
   const tags = tagList.map((tag, idx) => {
     return (
@@ -42,9 +50,9 @@ const BlogArticleView = (props) => {
                 type="checkbox"
                 id="heart"
                 name="heart"
-                // disabled
-                // checked={allTransfers}
-                onChange={() => dispatch(likeArticle(slug, token))}
+                disabled={!token}
+                checked={favorited}
+                onChange={() => setLikeDislike()}
               ></input>
               <span className={classes['checkbox__span']}></span>
               {favoritesCount}

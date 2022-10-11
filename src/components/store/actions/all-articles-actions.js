@@ -10,17 +10,15 @@ const allArticlesActions = (articles) => ({
   articles,
 });
 
-export const loadArticles =
-  (page = 0) =>
-  (dispatch) => {
-    dispatch(isLoadingActions(true));
-    dispatch(isErrorActions(false));
-    BlogGetArticles(page)
-      .then((response) => {
-        const { articles, articlesCount } = response.data;
-        dispatch(allArticlesActions(articles));
-        dispatch(totalCounterOfArticlesActions(articlesCount));
-        dispatch(isLoadingActions(false));
-      })
-      .catch(() => dispatch(isErrorActions(true)));
-  };
+export const loadArticles = (page) => (dispatch) => {
+  dispatch(isLoadingActions(true));
+  dispatch(isErrorActions(false));
+  BlogGetArticles(page)
+    .then((response) => {
+      const { articles, articlesCount } = response.data;
+      dispatch(allArticlesActions(articles));
+      dispatch(totalCounterOfArticlesActions(articlesCount));
+      dispatch(isLoadingActions(false));
+    })
+    .catch(() => dispatch(isErrorActions(true)));
+};

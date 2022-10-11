@@ -5,7 +5,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { loadArticle } from '../store/actions/current-article-actions';
+// import { loadArticle } from '../store/actions/current-article-actions';
+import { getCurrentArticle } from '../store/thunks/get-current-article-thunk';
 import ArticlesSkeletonView from '../articles-skeleton-view';
 import { deleteArticle } from '../store/thunks/delete-article-thunk';
 import { likeArticle } from '../store/thunks/like-article-thunk';
@@ -37,7 +38,7 @@ const BlogArticle = () => {
   //Startup action
 
   useEffect(() => {
-    dispatch(loadArticle(slug));
+    dispatch(getCurrentArticle(slug, token));
   }, []);
 
   // console.log(deleteArticleReducer, navigate);
@@ -95,6 +96,7 @@ const BlogArticle = () => {
   if (Object.keys(currentArticleReducer).length > 0) {
     let { title, description, body, createdAt, favorited, favoritesCount, tagList } = currentArticleReducer;
     const { username, image } = currentArticleReducer.author;
+    console.log(favorited);
     const setLikeDislike = () => {
       if (favorited) {
         dispatch(dislikeArticle(slug, token));

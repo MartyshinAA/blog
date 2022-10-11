@@ -9,10 +9,10 @@ export const currentArticleActions = (article) => ({
   article,
 });
 
-export const loadArticle = (slug) => (dispatch) => {
+export const loadArticle = (slug, token) => (dispatch) => {
   dispatch(isErrorActions(false));
   dispatch(currentArticleActions(''));
-  BlogGetArticle(slug)
+  BlogGetArticle(slug, token)
     .then((response) => {
       dispatch(isLoadingActions(true));
       dispatch(currentArticleActions(response.data.article));
