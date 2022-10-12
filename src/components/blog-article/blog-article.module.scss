@@ -18,8 +18,7 @@ h3 {
   margin-top: 26px;
   margin-bottom: 26px;
   width: 941px;
-  height: fit-content;
-  min-height: fit-content;
+  min-height: 140px;
   -webkit-box-shadow: 0px 4px 8px 2px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0px 4px 8px 2px rgba(34, 60, 80, 0.2);
   box-shadow: 0px 4px 8px 2px rgba(34, 60, 80, 0.2);
@@ -49,6 +48,8 @@ h3 {
   }
 
   .checkbox {
+    display: flex;
+    align-items: center;
     margin-left: 35px;
     font-size: 13px;
 
@@ -85,15 +86,14 @@ h3 {
     display: flex;
     gap: 8px;
     font-size: 12px;
-    margin: 6px 0;
+    margin: 10px 0;
   }
 
   &__short-text-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin-top: 15px;
   }
 
   &__button-wrapper {
@@ -142,5 +142,9 @@ h3 {
     height: 46px;
     margin-left: 12px;
     border-radius: 50%;
+  }
+
+  .text-content {
+    margin-top: 20px;
   }
 }

@@ -7,14 +7,13 @@ import { currentArticleReducer } from './reducers/current-article-reducer';
 // pagination
 import { totalCountOfArticlesReducer } from './reducers/total-counter-of-articles-reducers';
 import { currentPageReducer } from './reducers/current-page-reducer';
-// import { createdAndloginUserReducer } from './reducers/sign-up-reducer';
 import { loggedUserReducer } from './reducers/sign-in-reducer';
 import { serverResponseReducer } from './reducers/server-response-reducer';
-import { isLoggedReducer } from './reducers/is-logged-reducer';
-import { deleteArticleReducer } from './reducers/delete-article-reducer';
-import { editArticleReducer } from './reducers/edit-article-reducer';
-import { likeArticleReducer } from './reducers/like-article-reducer';
-import { dislikeArticleReducer } from './reducers/dislike-article-reducer';
+// import { isLoggedReducer } from './reducers/is-logged-reducer';
+// import { deleteArticleReducer } from './reducers/delete-article-reducer';
+// import { editArticleReducer } from './reducers/edit-article-reducer';
+// import { likeArticleReducer } from './reducers/like-article-reducer';
+// import { dislikeArticleReducer } from './reducers/dislike-article-reducer';
 
 const preloadedState = {
   isErrorReducer: false,
@@ -23,14 +22,13 @@ const preloadedState = {
   allArticlesReducer: [],
   totalCountOfArticlesReducer: '',
   currentPageReducer: 1,
-  // createdAndloginUserReducer: {},
   loggedUserReducer: {},
   serverResponseReducer: {},
-  isLoggedReducer: Boolean,
-  deleteArticleReducer: '',
-  editArticleReducer: '',
-  likeArticleReducer: Boolean,
-  dislikeArticleReducer: Boolean,
+  // isLoggedReducer: Boolean,
+  // deleteArticleReducer: '',
+  // editArticleReducer: '',
+  // likeArticleReducer: Boolean,
+  // dislikeArticleReducer: Boolean,
 };
 
 export const store = configureStore({
@@ -41,14 +39,13 @@ export const store = configureStore({
     allArticlesReducer,
     totalCountOfArticlesReducer,
     currentPageReducer,
-    // createdAndloginUserReducer,
     loggedUserReducer,
     serverResponseReducer,
-    isLoggedReducer,
-    deleteArticleReducer,
-    editArticleReducer,
-    likeArticleReducer,
-    dislikeArticleReducer,
+    // isLoggedReducer,
+    // deleteArticleReducer,
+    // editArticleReducer,
+    // likeArticleReducer,
+    // dislikeArticleReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

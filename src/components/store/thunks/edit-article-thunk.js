@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { serverResponseActions } from '../actions/server-response-actions';
-import { editArticleActions } from '../actions/edit-article-actions';
+// import { editArticleActions } from '../actions/edit-article-actions';
 // import { signUpActions } from '../actions/sign-up-actions';
 
 export const editArticle = (slug, article, token) => (dispatch) => {
@@ -31,7 +31,7 @@ export const editArticle = (slug, article, token) => (dispatch) => {
         },
       },
     })
-      .then((response) => dispatch(editArticleActions(response.data.user)))
+      // .then((response) => dispatch(editArticleActions(response.data.user)))
       .catch((error) => dispatch(serverResponseActions(error.response.data.errors)));
   } catch (error) {
     console.error(error);

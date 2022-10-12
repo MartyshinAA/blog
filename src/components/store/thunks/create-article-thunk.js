@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { serverResponseActions } from '../actions/server-response-actions';
-import { createArticleActions } from '../actions/create-article-actions';
+// import { createArticleActions } from '../actions/create-article-actions';
 
 export const createArticle = (article, token) => (dispatch) => {
   const { title, description, body, tags } = article;
@@ -29,7 +29,7 @@ export const createArticle = (article, token) => (dispatch) => {
         },
       },
     })
-      .then((response) => dispatch(createArticleActions(response.data.user)))
+      // .then((response) => dispatch(createArticleActions(response.data.user)))
       .catch((error) => dispatch(serverResponseActions(error.response.data.errors)));
   } catch (error) {
     console.error(error);

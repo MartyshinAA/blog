@@ -1,7 +1,6 @@
 import { Pagination } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
-// import { pageOffsetActions } from '../store/actions/page-offset-actions';
 import { currentPageActions } from '../store/actions/current-page-actions';
 
 import classes from './blog-pagination.module.scss';
