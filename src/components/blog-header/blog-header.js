@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { serverResponseActions } from '../store/actions/server-response-actions';
-// import { isLogged } from '../store/thunks/is-logged-thunk';
 import { signInActions } from '../store/actions/sign-in-actions';
 
 import classes from './blog-header.module.scss';
@@ -54,7 +53,6 @@ const BlogHeader = () => {
       <Link to="/sign-up" name="sign-up" className={classNames(classes['sign-up'], classes['sign-log-buttons'])}>
         Sign Up
       </Link>
-      {/* <button onClick={() => dispatch(isLogged())}>Status</button> */}
     </div>
   );
 

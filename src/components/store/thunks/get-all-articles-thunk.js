@@ -21,7 +21,6 @@ export const getAllArticles =
         },
       })
         .then((response) => {
-          console.log(response.data.articles);
           const { articles, articlesCount } = response.data;
           dispatch(allArticlesActions(articles));
           dispatch(totalCounterOfArticlesActions(articlesCount));

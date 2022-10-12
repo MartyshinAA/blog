@@ -1,7 +1,6 @@
 import { Form, Button, Input } from 'antd';
 import { useForm, Controller } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
 
 import { editProfile } from '../store/thunks/blog-edit-profile-thunk';
 
@@ -18,13 +17,11 @@ const EditProfile = () => {
   });
 
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const { username, email, token, image } = useSelector((state) => state.loggedUserReducer);
 
   const onSubmit = (data) => {
     dispatch(editProfile(data, token));
     reset();
-    // navigate('/');
   };
 
   return (
@@ -92,18 +89,12 @@ const EditProfile = () => {
           render={({ field }) => (
             <Input
               {...field}
-              // onBlur={field.onBlur}
               type="url"
               className={classes['avatar-image-input']}
               placeholder={'Avatar image'}
               defaultValue={image}
             ></Input>
           )}
-          // rules={{
-          //   pattern: {
-          //     value: /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm,
-          //   },
-          // }}
         />
       </section>
       <Button type="primary" htmlType="submit" className={classes['save-button']}>

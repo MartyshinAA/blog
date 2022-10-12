@@ -11,7 +11,6 @@ import { deleteArticle } from '../store/thunks/delete-article-thunk';
 import { likeArticle } from '../store/thunks/like-article-thunk';
 import { dislikeArticle } from '../store/thunks/dislike-article-thunk';
 
-import '../delete-mw/delete-mw.scss';
 import classesMain from './blog-article.module.scss';
 import previewClasses from './blog-article-preview.module.scss';
 
@@ -34,7 +33,6 @@ const BlogArticle = (props) => {
   const dispatch = useDispatch();
   const { slug: slugParams } = useParams();
   const articleName = slugParams || slugProps;
-  // console.log(currentArticleReducer);
   let currentArticleInfo;
   if (slugProps) {
     currentArticleInfo = allArticlesReducer.filter((article) => article.slug === articleName);
@@ -95,19 +93,16 @@ const BlogArticle = (props) => {
   if (Object.keys(currentArticle).length > 0) {
     const { body, title, description, createdAt, favorited, favoritesCount, tagList } = currentArticle;
     const { username: author, image } = currentArticle.author;
-    // const { username: author, image } = props.author;
 
     const setLikeDislike = () => {
       if (favorited) {
-        console.log(token);
         dispatch(dislikeArticle(articleName, token));
       } else {
-        console.log(token);
         dispatch(likeArticle(articleName, token));
       }
     };
-    // console.log(favorited);
     const tags = tagList.map((tag, idx) => {
+      if (tag === null) return;
       return (
         <Tag key={idx} className={classes['blog-article-view__tag']}>
           {tag}

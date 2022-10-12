@@ -9,11 +9,6 @@ import { totalCountOfArticlesReducer } from './reducers/total-counter-of-article
 import { currentPageReducer } from './reducers/current-page-reducer';
 import { loggedUserReducer } from './reducers/sign-in-reducer';
 import { serverResponseReducer } from './reducers/server-response-reducer';
-// import { isLoggedReducer } from './reducers/is-logged-reducer';
-// import { deleteArticleReducer } from './reducers/delete-article-reducer';
-// import { editArticleReducer } from './reducers/edit-article-reducer';
-// import { likeArticleReducer } from './reducers/like-article-reducer';
-// import { dislikeArticleReducer } from './reducers/dislike-article-reducer';
 
 const preloadedState = {
   isErrorReducer: false,
@@ -24,11 +19,6 @@ const preloadedState = {
   currentPageReducer: 1,
   loggedUserReducer: {},
   serverResponseReducer: {},
-  // isLoggedReducer: Boolean,
-  // deleteArticleReducer: '',
-  // editArticleReducer: '',
-  // likeArticleReducer: Boolean,
-  // dislikeArticleReducer: Boolean,
 };
 
 export const store = configureStore({
@@ -41,11 +31,6 @@ export const store = configureStore({
     currentPageReducer,
     loggedUserReducer,
     serverResponseReducer,
-    // isLoggedReducer,
-    // deleteArticleReducer,
-    // editArticleReducer,
-    // likeArticleReducer,
-    // dislikeArticleReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

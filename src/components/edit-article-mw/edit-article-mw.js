@@ -1,7 +1,8 @@
 import { Form, Button, Input } from 'antd';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 const { TextArea } = Input;
 
@@ -10,6 +11,7 @@ import { editArticle } from '../store/thunks/edit-article-thunk';
 import classes from './edit-article-mw.module.scss';
 
 const EditArticle = () => {
+  const { title, description, body, tagList = [] } = useSelector((state) => state.currentArticleReducer);
   const {
     formState: { errors },
     handleSubmit,
@@ -19,30 +21,42 @@ const EditArticle = () => {
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
-      tags: [
-        {
-          name: '',
-        },
-      ],
+      tags: tagList.map((item) => ({
+        name: `${item}`,
+      })),
+      // tags: [
+      //   {
+      //     name: `${tagList[0]}`,
+      //   },
+      //   {
+      //     name: `${tagList[1]}`,
+      //   },
+      // ],
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  let { fields, append, remove } = useFieldArray({
     control,
     name: 'tags',
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { slug } = useParams();
 
   const { token } = useSelector((state) => state.loggedUserReducer);
-  const { title, description, body, tagList } = useSelector((state) => state.currentArticleReducer);
-  console.log(title, description, body, tagList[0]);
-  // console.log(tagList[0]);
+  const { currentArticleReducer } = useSelector((state) => state);
+
+  useEffect(() => {
+    if (currentArticleReducer.length === 0) {
+      navigate('/');
+    }
+  }, []);
 
   const onSubmit = (data) => {
     dispatch(editArticle(slug, data, token));
     reset();
+    navigate('/');
   };
 
   return (
@@ -103,10 +117,12 @@ const EditArticle = () => {
       <label className={classes['tags-title']}>Tags</label>
       <div className={classes['tag-wrapper-add-tag']}>
         <ul className={classes.tags}>
-          {fields.map((item, idx) => {
+          {fields.map((tag, idx) => {
             console.log(tagList);
+            // console.log(tag);
+            // console.log(idx);
             return (
-              <li key={item.id} className={classes['tag-wrapper']}>
+              <li key={idx} className={classes['tag-wrapper']}>
                 <Controller
                   control={control}
                   name={`tags[${idx}].name`}
@@ -116,7 +132,7 @@ const EditArticle = () => {
                       type="text"
                       className={classes['tag-input']}
                       placeholder={'Tag'}
-                      defaultValue={item}
+                      defaultValue={tag}
                     ></Input>
                   )}
                   rules={{

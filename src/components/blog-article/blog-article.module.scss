@@ -65,6 +65,10 @@ h3 {
     }
 
     &__span {
+      &:hover {
+        cursor: pointer;
+      }
+
       position: absolute;
       margin-left: -20px;
       width: 16px;

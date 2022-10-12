@@ -8,24 +8,22 @@ import { Routes, Route } from 'react-router-dom';
 // added encryption just in case
 import SecureLS from 'secure-ls';
 
-import { getAllArticles } from '../store/thunks/get-all-articles-thunk';
 import { store } from '../store/store';
 import BlogHeader from '../blog-header';
 import NewAccount from '../new-account-mw';
-import SignIn from '../sign-in-mw/sign-in-mw';
+import SignIn from '../sign-in-mw';
 import EditProfile from '../edit-profile-mw';
-import BlogArticles from '../blog-articles';
+import MainPage from '../main-page';
 import BlogArticle from '../blog-article';
 import CreateArticle from '../create-article-mw';
 import EditArticle from '../edit-article-mw';
 import { signInActions } from '../store/actions/sign-in-actions';
-// import { currentArticleActions } from '../store/actions/current-article-actions';
+import { getAllArticles } from '../store/thunks/get-all-articles-thunk';
 
 const App = () => {
   const ls = new SecureLS();
   const WrapperUseEffect = () => {
     const { currentPageReducer } = useSelector((state) => state);
-    // const { currentArticleReducer } = useSelector((state) => state);
     const { token } = useSelector((state) => state.loggedUserReducer);
     const { loggedUserReducer } = useSelector((state) => state);
     const dispatch = useDispatch();
@@ -37,14 +35,12 @@ const App = () => {
     useEffect(() => {
       if (ls.get('loggedUserReducer')) {
         dispatch(signInActions(JSON.parse(ls.get('loggedUserReducer'))));
-        // dispatch(currentArticleActions(JSON.parse(ls.get('currentArticleReducer'))));
       }
     }, []);
 
     useEffect(() => {
       ls.set('loggedUserReducer', JSON.stringify(loggedUserReducer));
-      // ls.set('currentArticleReducer', JSON.stringify(currentArticleReducer));
-    }, [/*currentArticleReducer*/ loggedUserReducer]);
+    }, [loggedUserReducer]);
   };
 
   return (
@@ -52,15 +48,15 @@ const App = () => {
       <WrapperUseEffect />
       <BlogHeader />
       <Routes>
-        <Route path="/" element={<BlogArticles />} />
-        <Route path="/articles" element={<BlogArticles />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/articles" element={<MainPage />} />
         <Route path="/new-article" element={<CreateArticle />} />
         <Route path="/articles/:slug" element={<BlogArticle />} />
         <Route path="/articles/:slug/edit" element={<EditArticle />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<NewAccount />} />
         <Route path="/profile" element={<EditProfile />} />
-        <Route path="*" element={<BlogArticles />} />
+        <Route path="*" element={<MainPage />} />
       </Routes>
     </Provider>
   );

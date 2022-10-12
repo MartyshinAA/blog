@@ -54,7 +54,6 @@ const NewAccount = () => {
           render={({ field }) => (
             <Input
               {...field}
-              // onBlur={field.onBlur}
               type="email"
               className={classes['email-address-input']}
               placeholder={'Email address'}
