@@ -110,7 +110,7 @@ const BlogArticle = (props) => {
       );
     });
     content = (
-      <div className={classes['blog-article']}>
+      <li className={classes['blog-article']}>
         <div className={classes['blog-article__wrapper']}>
           <div className={classes['blog-article__left-side']}>
             <div className={classes['blog-article__title-wrapper']}>
@@ -162,7 +162,7 @@ const BlogArticle = (props) => {
           <ReactMarkdown className={classes['text-content']}>{body}</ReactMarkdown>
           // </div>
         )}
-      </div>
+      </li>
     );
   }
 

@@ -7,6 +7,8 @@ import BlogArticle from '../blog-article';
 import BlogPagination from '../blog-pagination';
 import { getAllArticles } from '../store/thunks/get-all-articles-thunk';
 
+import classes from './main-page.module.scss';
+
 const MainPage = () => {
   const { allArticlesReducer } = useSelector((state) => state);
   const { token } = useSelector((state) => state.loggedUserReducer);
@@ -31,11 +33,11 @@ const MainPage = () => {
 
   const status = !(isLoadingReducer || isErrorReducer);
   const skeleton = isLoadingReducer && (
-    <ul>
+    <ul className={classes['skeletons-on-page']}>
       <ArticlesSkeletonView cards={5} />
     </ul>
   );
-  const content = status && <ul>{article}</ul>;
+  const content = status && <ul className={classes['articles-on-page']}>{article}</ul>;
 
   return (
     <>

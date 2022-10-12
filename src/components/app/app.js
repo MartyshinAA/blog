@@ -30,6 +30,10 @@ const App = () => {
     const currentOffset = currentPageReducer * 5 - 5;
     useEffect(() => {
       dispatch(getAllArticles(currentOffset, token));
+      scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     }, [currentPageReducer, token]);
 
     useEffect(() => {
