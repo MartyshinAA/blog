@@ -5,7 +5,6 @@ import { serverResponseActions } from '../actions/server-response-actions';
 export const editArticle = (slug, article, token) => (dispatch) => {
   const { title, description, body, tags } = article;
   const tagList = tags.map((tag) => {
-    // console.log(tag.name.length !== 0);
     if (tag.name.length !== 0) {
       return tag.name;
     } else return;

@@ -53,6 +53,10 @@ h3 {
     margin-left: 35px;
     font-size: 13px;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     &__input {
       position: absolute;
       width: 1px;
@@ -65,10 +69,6 @@ h3 {
     }
 
     &__span {
-      &:hover {
-        cursor: pointer;
-      }
-
       position: absolute;
       margin-left: -20px;
       width: 16px;

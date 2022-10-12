@@ -158,9 +158,9 @@ const BlogArticle = (props) => {
           </div>
         </div>
         {slugParams && (
-          <div data-color-mode="light">
-            <ReactMarkdown className={classes['text-content']}>{body}</ReactMarkdown>
-          </div>
+          // <div data-color-mode="light">
+          <ReactMarkdown className={classes['text-content']}>{body}</ReactMarkdown>
+          // </div>
         )}
       </div>
     );

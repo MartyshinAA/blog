@@ -11,11 +11,10 @@ import { editArticle } from '../store/thunks/edit-article-thunk';
 import classes from './edit-article-mw.module.scss';
 
 const EditArticle = () => {
-  const { title, description, body, tagList = [] } = useSelector((state) => state.currentArticleReducer);
+  const { title, description, body, tagList } = useSelector((state) => state.currentArticleReducer);
   const {
     formState: { errors },
     handleSubmit,
-    reset,
     control,
     getValues,
   } = useForm({
@@ -24,14 +23,6 @@ const EditArticle = () => {
       tags: tagList.map((item) => ({
         name: `${item}`,
       })),
-      // tags: [
-      //   {
-      //     name: `${tagList[0]}`,
-      //   },
-      //   {
-      //     name: `${tagList[1]}`,
-      //   },
-      // ],
     },
   });
 
@@ -55,8 +46,7 @@ const EditArticle = () => {
 
   const onSubmit = (data) => {
     dispatch(editArticle(slug, data, token));
-    reset();
-    navigate('/');
+    navigate(`/articles/${slug}`);
   };
 
   return (
@@ -118,9 +108,6 @@ const EditArticle = () => {
       <div className={classes['tag-wrapper-add-tag']}>
         <ul className={classes.tags}>
           {fields.map((tag, idx) => {
-            console.log(tagList);
-            // console.log(tag);
-            // console.log(idx);
             return (
               <li key={idx} className={classes['tag-wrapper']}>
                 <Controller
@@ -161,45 +148,6 @@ const EditArticle = () => {
                   <div className={classes['not-unique-tag']}>{errors.tags[idx]?.name.message}</div>
                 )}
               </li>
-              // <li key={item.id} className={classes['tag-wrapper']}>
-              //   <Controller
-              //     control={control}
-              //     name={`tags[${idx}].name`}
-              //     render={({ field }) => (
-              //       <Input
-              //         {...field}
-              //         type="text"
-              //         className={classes['tag-input']}
-              //         placeholder={'Tag'}
-              //         defaultValue={item}
-              //       ></Input>
-              //     )}
-              //     rules={{
-              //       validate: (match) => {
-              //         const tags = getValues(`tags`);
-              //         const tagsArray = tags.map((tag) => tag.name);
-              //         const tagsArrayCopy = [...tagsArray];
-              //         tagsArrayCopy.splice(idx, 1);
-              //         const isDuoble = tagsArrayCopy.includes(match);
-              //         return !isDuoble || 'Your tag is not unique';
-              //       },
-              //     }}
-              //   />
-              //   <Button
-              //     ghost
-              //     danger
-              //     type="primary"
-              //     className={classes['delete-button']}
-              //     onClick={() => {
-              //       remove(idx);
-              //     }}
-              //   >
-              //     Delete
-              //   </Button>
-              //   {getValues(`tags`) && errors.tags && (
-              //     <div className={classes['not-unique-tag']}>{errors.tags[idx]?.name.message}</div>
-              //   )}
-              // </li>
             );
           })}
         </ul>
