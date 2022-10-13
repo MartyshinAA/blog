@@ -1,1 +1,1 @@
-Blog https://blog-martyshinaa.vercel.app/
+Blog https://blog-martyshinaa.vercel.App/

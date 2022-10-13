@@ -1,0 +1,85 @@
+.create-NewAccountMw {
+  display: flex;
+  flex-direction: column;
+  width: 384px;
+  min-height: 599px;
+  -webkit-box-shadow: 0px 4px 8px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 4px 8px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 4px 8px 2px rgba(34, 60, 80, 0.2);
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  padding: 48px 33px;
+  margin-top: 59px;
+  background-color: #fff;
+
+  .divider {
+    margin-top: 21px;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+}
+
+.account-header {
+  text-align: center;
+  font-weight: 600;
+}
+
+.username-label,
+.email-address-label,
+.password-label,
+.repeat-password-label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.username-input,
+.email-address-input,
+.password-input,
+.repeat-password-input {
+  margin-top: 5px;
+  padding-left: 10px;
+  width: 320px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.wrong-pass,
+.pass-not-match {
+  color: #f5222d;
+  font-size: small;
+}
+
+.agreed {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.sign-in-text {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  color: #8c8c8c;
+}
+
+.create-button {
+  margin-top: 21px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  width: 319px;
+  height: 40px;
+}
+
+.sign-in-text {
+  text-align: center;
+}
+
+.sign-in-button {
+  margin-left: 5px;
+  background: inherit;
+  border: none;
+  outline: none;
+  color: #1890ff;
+}

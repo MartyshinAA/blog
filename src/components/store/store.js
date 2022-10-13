@@ -1,14 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit'
 
-import { isErrorReducer } from './reducers/is-error-reducer';
-import { isLoadingReducer } from './reducers/is-loading-reducer';
-import { allArticlesReducer } from './reducers/all-articles-reducer';
-import { currentArticleReducer } from './reducers/current-article-reducer';
+import { isErrorReducer } from './Reducers/IsErrorReducer'
+import { isLoadingReducer } from './Reducers/IsLoadingReducer'
+import { allArticlesReducer } from './Reducers/AllArticlesReducer'
+import { currentArticleReducer } from './Reducers/CurrentArticleReducer'
 // pagination
-import { totalCountOfArticlesReducer } from './reducers/total-counter-of-articles-reducers';
-import { currentPageReducer } from './reducers/current-page-reducer';
-import { loggedUserReducer } from './reducers/sign-in-reducer';
-import { serverResponseReducer } from './reducers/server-response-reducer';
+import { totalCountOfArticlesReducer } from './Reducers/TotalCounterOfArticlesReducers'
+import { currentPageReducer } from './Reducers/CurrentPageReducer'
+import { loggedUserReducer } from './Reducers/SignInReducer'
+import { serverResponseReducer } from './Reducers/ServerResponseReducer'
 
 const preloadedState = {
   isErrorReducer: false,
@@ -19,7 +19,7 @@ const preloadedState = {
   currentPageReducer: 1,
   loggedUserReducer: {},
   serverResponseReducer: {},
-};
+}
 
 export const store = configureStore({
   reducer: {
@@ -40,4 +40,4 @@ export const store = configureStore({
     }),
   devTools: true,
   preloadedState,
-});
+})
