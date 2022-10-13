@@ -6,6 +6,7 @@ import ArticlesSkeletonView from '../ArticlesSkeletonView'
 import BlogArticle from '../BlogArticle'
 import BlogPagination from '../BlogPagination'
 import { getAllArticles } from '../Store/Thunks/GetAllArticlesThunk'
+import { serverResponseActions } from '../Store/Actions/ServerResponseActions'
 
 import classes from './MainPage.module.scss'
 
@@ -21,6 +22,7 @@ const MainPage = () => {
   useEffect(() => {
     dispatch(currentPageActions(1))
     dispatch(getAllArticles(0, token))
+    dispatch(serverResponseActions(''))
   }, [token])
 
   const article = allArticlesReducer.map((props) => {

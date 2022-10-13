@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-import { serverResponseActions } from '../Actions/ServerResponseActions'
 import { allArticlesActions } from '../Actions/AllArticlesActions'
 import { isLoadingActions } from '../Actions/IsLoadingActions'
 import { isErrorActions } from '../Actions/IsErrorActions'
@@ -26,7 +25,7 @@ export const getAllArticles =
           dispatch(totalCounterOfArticlesActions(articlesCount))
           dispatch(isLoadingActions(false))
         })
-        .catch((error) => dispatch(serverResponseActions(error.response.data.errors)))
+        .catch(() => dispatch(isErrorActions(true)))
     } catch (error) {
       console.error(error)
     }

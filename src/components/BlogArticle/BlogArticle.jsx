@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { getCurrentArticle } from '../Store/Thunks/GetCurrentArticleThunk'
 import ArticlesSkeletonView from '../ArticlesSkeletonView'
+import ErrorMessage from '../ErrorMessage'
 import { deleteArticle } from '../Store/Thunks/DeleteArticleThunk'
 import { likeArticle } from '../Store/Thunks/LikeArticleThunk'
 import { dislikeArticle } from '../Store/Thunks/DislikeArticleThunk'
@@ -45,9 +46,9 @@ const BlogArticle = (props) => {
   //fill default content if data not uploaded
 
   let content = (
-    <ul>
+    <div className={classes['skeleton-laoding-view']}>
       <ArticlesSkeletonView cards={1} />
-    </ul>
+    </div>
   )
 
   //Popconfirm content
@@ -163,8 +164,9 @@ const BlogArticle = (props) => {
   }
 
   const statusOk = !(isLoadingReducer || isErrorReducer)
+  const statusError = isErrorReducer && ErrorMessage
 
-  return <>{statusOk && content}</>
+  return <>{statusOk ? content : statusError}</>
 }
 
 export default BlogArticle

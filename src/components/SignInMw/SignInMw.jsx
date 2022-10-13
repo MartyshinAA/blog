@@ -5,19 +5,22 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 
 import { signIn } from '../Store/Thunks/BlogSignInThunk'
+import { serverResponseActions } from '../Store/Actions/ServerResponseActions'
 
 import classes from './SignInMw.module.scss'
 
 const SignIn = () => {
-  const { handleSubmit, reset, control } = useForm({
+  const { handleSubmit, control } = useForm({
     mode: 'onBlur',
   })
 
   const { token } = useSelector((state) => state.loggedUserReducer)
+  const { serverResponseReducer } = useSelector((state) => state)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
+    dispatch(serverResponseActions(''))
     if (token) {
       navigate('/')
     }
@@ -25,7 +28,7 @@ const SignIn = () => {
 
   const onSubmit = (data) => {
     dispatch(signIn(data))
-    reset()
+    dispatch(serverResponseActions(''))
   }
 
   return (
@@ -47,7 +50,6 @@ const SignIn = () => {
           )}
           rules={{
             required: true,
-            pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: 'invalid email address' },
           }}
         />
       </section>
@@ -69,6 +71,11 @@ const SignIn = () => {
             required: true,
           }}
         />
+        {serverResponseReducer && (
+          <div className={classes['password-message']}>{`${Object.keys(serverResponseReducer)} ${Object.values(
+            serverResponseReducer
+          )}`}</div>
+        )}
       </section>
       <Button type="primary" htmlType="submit" className={classes['login-button']}>
         Login

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { serverResponseActions } from '../Store/Actions/ServerResponseActions'
 import { editProfile } from '../Store/Thunks/BlogEditProfileThunk'
 
 import classes from './EditProfileMw.module.scss'
@@ -19,6 +20,7 @@ const EditProfile = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { serverResponseReducer } = useSelector((state) => state)
   const { username, email, token, image } = useSelector((state) => state.loggedUserReducer)
 
   useEffect(() => {
@@ -29,6 +31,7 @@ const EditProfile = () => {
 
   const onSubmit = (data) => {
     dispatch(editProfile(data, token))
+    dispatch(serverResponseActions(''))
     navigate('/')
   }
 
@@ -45,6 +48,9 @@ const EditProfile = () => {
           )}
           rules={{ required: true }}
         />
+        {serverResponseReducer['username'] && (
+          <div className={classes['username-message']}>{`Username ${serverResponseReducer['username']}`}</div>
+        )}
       </section>
       <section>
         <label className={classes['email-address-label']}>Email address</label>
@@ -63,9 +69,11 @@ const EditProfile = () => {
           )}
           rules={{
             required: true,
-            pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: 'invalid email address' },
           }}
         />
+        {serverResponseReducer['username'] && (
+          <div className={classes['email-message']}>{`Email adress ${serverResponseReducer['email']}`}</div>
+        )}
       </section>
       <section>
         <label className={classes['password-label']}>New password</label>

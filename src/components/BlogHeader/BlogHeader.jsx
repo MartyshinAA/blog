@@ -1,17 +1,14 @@
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
-import { Image, Button, message } from 'antd'
-import { useEffect } from 'react'
+import { Image, Button } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 
 import defaultImage from '../../img/content/Photo.png'
-import { serverResponseActions } from '../Store/Actions/ServerResponseActions'
 import { signInActions } from '../Store/Actions/SignInActions'
 
 import classes from './BlogHeader.module.scss'
 
 const BlogHeader = () => {
-  const { serverResponseReducer } = useSelector((state) => state)
   const { username, image, token } = useSelector((state) => state.loggedUserReducer)
 
   let avatarImage
@@ -21,15 +18,6 @@ const BlogHeader = () => {
     avatarImage = image
   }
   const dispatch = useDispatch()
-
-  const serverResponseMessage = () => {
-    if (Object.keys(serverResponseReducer).length) {
-      message.warning(JSON.stringify(serverResponseReducer).replaceAll('"', ' '))
-      dispatch(serverResponseActions(''))
-    }
-  }
-
-  useEffect(() => serverResponseMessage(), [serverResponseReducer])
 
   const logged = Boolean(token)
 

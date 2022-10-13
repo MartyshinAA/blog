@@ -5,6 +5,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { signUp } from '../Store/Thunks/BlogSignUpThunk'
+import { serverResponseActions } from '../Store/Actions/ServerResponseActions'
 
 import classes from './NewAccountMw.module.scss'
 
@@ -13,17 +14,18 @@ const NewAccount = () => {
     formState: { errors },
     handleSubmit,
     getValues,
-    reset,
     control,
   } = useForm({
     mode: 'onBlur',
   })
 
   const { token } = useSelector((state) => state.loggedUserReducer)
+  const { serverResponseReducer } = useSelector((state) => state)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
+    dispatch(serverResponseActions(''))
     if (token) {
       navigate('/')
     }
@@ -31,7 +33,7 @@ const NewAccount = () => {
 
   const onSubmit = (data) => {
     dispatch(signUp(data))
-    reset()
+    dispatch(serverResponseActions(''))
   }
 
   return (
@@ -45,6 +47,9 @@ const NewAccount = () => {
           render={({ field }) => <Input {...field} placeholder="Username" className={classes['username-input']} />}
           rules={{ required: true, minLength: 3, maxLength: 20 }}
         />
+        {serverResponseReducer['username'] && (
+          <div className={classes['username-message']}>{`Username ${serverResponseReducer['username']}`}</div>
+        )}
       </section>
       <section>
         <label className={classes['email-address-label']}>Email address</label>
@@ -61,12 +66,11 @@ const NewAccount = () => {
           )}
           rules={{
             required: true,
-            pattern: {
-              value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-              message: 'invalid email address',
-            },
           }}
         />
+        {serverResponseReducer['email'] && (
+          <div className={classes['email-message']}>{`Email adress ${serverResponseReducer['email']}`}</div>
+        )}
       </section>
       <section>
         <label className={classes['password-label']}>Password</label>

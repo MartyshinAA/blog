@@ -46,7 +46,9 @@
 }
 
 .wrong-pass,
-.pass-not-match {
+.pass-not-match,
+.username-message,
+.email-message {
   color: #f5222d;
   font-size: small;
 }
