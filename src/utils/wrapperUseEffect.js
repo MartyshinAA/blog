@@ -2,8 +2,9 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import SecureLS from 'secure-ls'
 
-import { signInActions } from '../../redux/actions/signInActions'
-import { getAllArticles } from '../../utils/getAllArticlesThunk'
+import { signInActions } from '../redux/actions/signInActions'
+
+import { getAllArticles } from './getAllArticlesThunk'
 
 const WrapperUseEffect = () => {
   const ls = new SecureLS()

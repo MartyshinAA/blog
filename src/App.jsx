@@ -8,7 +8,7 @@ import { Routes, Route } from 'react-router-dom'
 // import SecureLS from 'secure-ls'
 
 import { store } from '../src/redux/store'
-import BlogHeader from '../src/pages/BlogHeader'
+import BlogHeader from '../src/components/BlogHeader'
 import NewAccount from '../src/pages/NewAccountMw'
 import SignIn from '../src/pages/SignInMw'
 import EditProfile from '../src/pages/EditProfileMw'
@@ -16,7 +16,7 @@ import MainPage from '../src/pages/MainPage'
 import BlogArticle from '../src/pages/BlogArticle'
 import CreateArticle from '../src/pages/CreateArticleMw'
 import EditArticle from '../src/pages/EditArticleMw'
-import WrapperUseEffect from '../src/components/WrapperUseEffect'
+import WrapperUseEffect from '../src/utils/wrapperUseEffect'
 
 const App = () => {
   return (

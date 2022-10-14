@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 
 import ArticlesSkeletonView from '../../ui/ArticlesSkeletonView'
 import BlogArticle from '../../pages/BlogArticle'
-import BlogPagination from '../../pages/BlogPagination'
+import BlogPagination from '../../components/BlogPagination'
 import { currentPageActions } from '../../redux/actions/currentPageActions'
 import { serverResponseActions } from '../../redux/actions/serverResponseActions'
 import { getAllArticles } from '../../utils/getAllArticlesThunk'
