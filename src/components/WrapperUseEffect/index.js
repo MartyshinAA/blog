@@ -1,3 +1,3 @@
-import WrapperUseEffect from './WapperUseEffect'
+import WrapperUseEffect from './WrapperUseEffect'
 
 export default WrapperUseEffect
